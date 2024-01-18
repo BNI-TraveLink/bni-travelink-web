@@ -1,29 +1,34 @@
-<div class="font-poppins w-screen bg-login-landing bg-cover">
-    <div class="flex justify-end min-h-screen sm:max-h-screen p-10">
-        <div class="bg-white rounded-md shadow-md px-[30px] pb-[36px] pt-[14px] w-1/2 lg:w-1/3 sm:w-full">
-            <div id="cardLogin" >
-                <img class="w-20 h-20 mb-4 mx-auto" src="./assets/images/logo-bnitravelink.svg" alt="logo" />
-                <form class="flex flex-col gap-4">
-                    <div class="flex flex-col w-full h-[72px]">
-                        <label for="userID" class="text-zinc-400 text-xl sm:text-lg font-normal font-inter leading-snug">User ID</label>
-                        <input type="text" id="userID" class="border font-sem rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:ring focus:border-orange-500 transition-all duration-300" name="userID" placeholder="Masukkan User ID"/>
-                    </div>
-                    <div class="flex flex-col h-[72px]">
-                        <label for="mpin" class="text-orange-600 text-xl font-normal font-inter leading-snug">MPIN</label>
-                        <input type="password" id="mpin" class="border rounded-md border-gray-300 px-3 py-2 focus:outline-none focus:ring focus:border-orange-500 transition-all duration-300" name="mpin" placeholder="MPIN"/>                   
-                    </div> 
-                    <div class="mt-3">
-                        <div class="bg-zinc-300 rounded-md p-3 flex items-center">
-                            <img class="w-4 h-4 bg-white rounded-full mr-2" src="./assets/images/warning.svg"/>
-                            <div class="text-neutral-500 text-xs font-normal font-inter leading-3">It is recommended not to save your MPIN</div>
-                        </div>
-                    </div>
-                    <button class="bg-orange-600 text-white font-semibold p-2 rounded-md mx-auto mt-6 w-1/2 h-[56px]">Login</button>
-                </form>
+<div class="font-poppins w-full h-screen bg-login-landing bg-cover bg-no-repeat flex flex-col items-center md:flex-row md:justify-end md:items-center max-[640px]:justify-center pr-14">
+    <!-- buat card -->
+    <div id="card-login" class=" bg-white rounded-2xl shadow relative pb-[36px] my-16">
+        <div id="form-login" class="flex flex-col justify-start pt-4 md:pt-[14px] pb-16">
+            <div id="logo-brand" class="w-24 h-24 mx-auto mb-4">
+                <img src="./assets/images/logo-bnitravelink.svg" alt="">
             </div>
-            <div class="flex justify-between  text-sky-900 text-base font-medium font-inter w-full pt-4"> <!-- Menambahkan margin-top pada elemen ini -->
-                <div>Forget User ID?</div>
-                <div>Forget MPIN?</div>
+            <div id="form-content" class="mx-4 md:mx-[30px]">
+                <form>
+                    <div id="userID-form" class="flex flex-col mb-4">
+                        <label class="text-orange-500 font-medium" for="userID" id="userID">User ID</label>
+                        <input type="text" name="userID" placeholder="Userid" class="bg-white pl-3 rounded-3xl border-2 border-gray-300 h-[72px] shadow-md"/>
+                    </div>
+                    <div id="userID-form" class="flex flex-col mb-4">
+                        <label class="text-orange-500 font-medium" for="mpin" id="mpin">MPIN</label>
+                        <input type="password" name="mpin" placeholder="MPIN" class="bg-white pl-3 rounded-3xl border-2 border-gray-300 h-[72px] shadow-md text-green-800"/>
+                    </div>
+                    <div id="warning" class="w-full h-11 flex items-center py-2 px-3 mb-8 bg-[#D9D9D9] rounded">
+                        <img src="./assets/images/warning.svg" class="w-6 h-6"/>
+                        <p class="ml-3 text-neutral-400 text-xs font-normal leading-3">It is recommended not to save your MPIN</p>
+                    </div>
+                    <div id="button" class="text-center">
+                        <button class="w-full md:w-52 mx-auto h-16 bg-orange-600 rounded-2xl items-center text-white">Login</button>
+                    </div>
+               </form>
+            </div>
+        </div>
+        <div class="text-center mb-4 p-4 md:absolute bottom-0 left-0 md:w-full md:text-left">
+            <div id="forgot" class="flex justify-between">
+                <a href="#" class="text-green-900">Forgot UserID</a>
+                <a href="#" class="text-green-900">Forgot MPIN</a>
             </div>
         </div>
     </div>
