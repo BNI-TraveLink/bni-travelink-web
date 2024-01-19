@@ -13,8 +13,8 @@
                     </div>
                     <div id="mpin-form" class="flex flex-col mb-8">
                         <label class="text-orange-500 font-medium" for="mpin" id="mpin">MPIN</label>
-                        <div class="relative bg-white rounded-3xl border-2 text-[16px] border-gray-300 h-[72px] focus:border-orange-600 focus:outline-orange-600 shadow-md text-green-800 w-full block">
-                            <input type="password" formControlName="mpin" placeholder="MPIN" class="pl-[13px] w-full h-full rounded-3xl focus:outline-none" />
+                        <div class="relative bg-white rounded-3xl border-2 text-[16px] border-gray-300 h-[72px] text-green-800 w-full block">
+                            <input type="password" formControlName="mpin" placeholder="MPIN" class="pl-[13px] w-full h-full rounded-3xl focus:outline-none  focus:border-orange-600 focus:outline-orange-600 shadow-md" />
                             <span class="absolute inset-y-0 right-0 pr-3 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                                     <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
@@ -29,7 +29,9 @@
                         <img src="./assets/images/warning.svg" class="w-6 h-6"/>
                         <p class="ml-4 text-neutral-400 text-xs font-normal leading-3">It is recommended not to save your MPIN</p>
                     </div>
-                    <button type="submit" class="w-52 text-center mx-auto h-16 bg-orange-600 rounded-2xl items-center text-white">Login</button>
+                    <div class="text-center">
+                        <button type="submit" class="w-52 mx-auto h-16 bg-orange-600 rounded-2xl items-center text-white">Login</button>
+                    </div>
                </form>
             </div>
         </div>

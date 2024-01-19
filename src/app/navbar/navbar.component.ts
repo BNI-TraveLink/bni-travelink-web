@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+  // isNavbarCollapsed = true;
+
+  // toggleNavbar(){
+  //   this.isNavbarCollapsed = !this.isNavbarCollapsed
+  // }
 
 }
