@@ -9,6 +9,7 @@ import { PaymentComponent } from './payment/payment.component';
 import { PemesananComponent } from './pemesanan/pemesanan.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TabComponent } from './tab/tab.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     PaymentComponent,
     PemesananComponent,
-    NavbarComponent
+    NavbarComponent,
+    TabComponent
   ],
   imports: [
     BrowserModule,

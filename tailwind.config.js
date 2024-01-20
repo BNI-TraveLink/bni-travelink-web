@@ -9,9 +9,17 @@ module.exports = {
         'login-landing':"url('/assets/images/kota.png')"
       },
       fontFamily: { 
-        "poppins": ['Poppins', 'sans-serif'] 
+        "poppins": ['Poppins', 'sans-serif'], 
+        "inter": ['Inter', 'sans-serif'] 
     } 
     },
+  },
+  variants:{
+    extends:{
+      display:['group-focus'],
+      opacity:['group-focus'],
+      inset:['group-focus']
+    }
   },
   plugins: [],
 }

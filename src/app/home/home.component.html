@@ -1,4 +1,17 @@
 <app-navbar></app-navbar>
-<div class="w-full h-screen">
-    <img src="./assets/images/background_home.png" class="w-full h-96"alt="">
-</div>
+<main class="relative">
+    <div class="w-full h-screen relative">
+        <img src="/assets/images/background_home.png" class="w-full bg-contain opacity-85" alt="">
+        <div class="w-full absolute top-0 inset-0 z-[2] pt-10">
+            <h1 class="text-center text-white font-bold text-xl">Simplifying your journey with TraveLink</h1>
+            <div id="form-content" class="relative mx-auto mt-4">
+                <div class=" w-full h-8 absolute top-0 inset-0 bg-yellow-50">
+                    <app-tab></app-tab>
+                </div>
+                <!-- <div class=" w-full bg-red-50 pt-10">
+                    hello
+                </div> -->
+            </div>
+        </div>
+    </div>
+</main>
