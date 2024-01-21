@@ -8,11 +8,34 @@ import { Component } from '@angular/core';
   styleUrls: ['./tab.component.scss']
 })
 export class TabComponent {
-  tabs = ['KRL', 'MRT', 'LRT', 'TJ'];
-  activeTab: string = this.tabs[0];
+  activeTab: string = 'London';
+  title = "Halo"
 
-  selectTab(tab: string): void {
-    this.activeTab = tab;
+  formDataLondon: any = { username: '', password: '' };
+  formDataParis: any = { username: '', password: '' };
+  formDataTokyo: any = { username: '', password: '' };
+
+  openCity(cityName: string): void {
+    this.activeTab = cityName;
+  }
+
+  submitForm(cityName: string): void {
+    const formData = this.getFormData(cityName);
+    console.log(`Form data for ${cityName}:`, formData);
+    // Add your logic to send the form data to the server or handle it as needed
+  }
+
+  private getFormData(cityName: string): any {
+    switch (cityName) {
+      case 'London':
+        return { ...this.formDataLondon };
+      case 'Paris':
+        return { ...this.formDataParis };
+      case 'Tokyo':
+        return { ...this.formDataTokyo };
+      default:
+        return {};
+    }
   }
 
   // submitForm(form: any): void {

@@ -8,7 +8,7 @@ import { HomeComponent } from './home/home.component';
 import { PaymentComponent } from './payment/payment.component';
 import { PemesananComponent } from './pemesanan/pemesanan.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TabComponent } from './tab/tab.component';
 
 @NgModule({
@@ -24,7 +24,8 @@ import { TabComponent } from './tab/tab.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [
     provideClientHydration()

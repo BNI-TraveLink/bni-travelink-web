@@ -1,41 +1,115 @@
 <!-- tab.component.html -->
+<div class="relative mt-8 p-4 sm:mx-0 md:mx-5">
+  <div class="absolute inset-0 top-0 z-[2]">
+    <div id="tab-navigation" class="flex justify-center items-center gap-3.5 shadow-md bg-white rounded-2xl py-4 px-4 md:mx-16">
+      <button 
+        class="md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'London' ? 'bg-gray-300 text-gray-800' : 'bg-gray-200 text-gray-600' }}"
+        (click)="openCity('London')">London
+      </button>
+      
+      <button 
+        class="md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'Paris' ? 'bg-gray-300 text-gray-800' : 'bg-gray-200 text-gray-600' }}"
+        (click)="openCity('Paris')">Paris
+      </button>
+      
+      <button 
+        class="md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'Tokyo' ? 'bg-gray-300 text-gray-800' : 'bg-gray-200 text-gray-600' }}"
+        (click)="openCity('Tokyo')">Tokyo
+      </button>
 
-<div class="flex">
-    <div *ngFor="let tab of tabs" 
-         class="cursor-pointer px-4 py-2 border-b-2"
-         [class.border-blue-500]="tab === activeTab"
-         (click)="selectTab(tab)">
-      {{ tab }}
+      <button 
+        class="md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out">Other
+      </button>
     </div>
   </div>
-  
-  <div class="mt-4">
-    <ng-container *ngIf="activeTab === 'KRL'">
-      <!-- Konten Tab 1 -->
-      <form>
-        <!-- Tambahkan formulir sesuai kebutuhan -->
-        <label for="field1" class="block text-sm font-medium text-gray-600">Field 1:</label>
-        <input type="text" id="field1" class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300" name="field1">
-  
-        <label for="field2">Field 2:</label>
-        <input type="text" id="field2" name="field2"  class="mt-1 p-2 border rounded-md w-full focus:outline-none focus:ring focus:border-blue-300">
-  
-        <button type="submit" class="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300">Submit</button>
+
+
+  <div class="w-full h-[436px] inset-0 absolute z-[1] py-10 px-10 bg-neutral-100 mt-10 rounded-3xl shadow-md">
+    <div id="London" class="tabcontent flex flex-col justify-center" *ngIf="activeTab === 'London'">
+      <h3 class="text-xl font-semibold">London</h3>
+      <form class=" flex flex-col justify-center items-center px-8 pt-6 pb-8 mb-4" (ngSubmit)="submitForm('London')">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="usernameLondon">
+            Username
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="usernameLondon" name="usernameLondon" type="text" placeholder="Username" [(ngModel)]="formDataLondon.username">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="passwordLondon">
+            Password
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="passwordLondon" name="passwordLondon" type="password" placeholder="********" [(ngModel)]="formDataLondon.password">
+        </div>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit">
+          Log In
+        </button>
       </form>
-    </ng-container>
+    </div>
   
-    <ng-container *ngIf="activeTab === 'MRT'">
-      <!-- Konten Tab 2 -->
-      <form>
-        <!-- Tambahkan formulir sesuai kebutuhan -->
-        <label for="field3">Field 3:</label>
-        <input type="text" id="field3" name="field3">
-  
-        <label for="field4">Field 4:</label>
-        <input type="text" id="field4" name="field4">
-  
-        <button type="submit">Submit</button>
+    <div id="Paris" class="tabcontent" *ngIf="activeTab === 'Paris'">
+      <!-- ... (sama dengan London, sesuaikan id dan nama formulir) -->
+      <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" (ngSubmit)="submitForm('Paris')">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="usernameParis">
+            Username
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="usernameParis" name="usernameParis" type="text" placeholder="Username" [(ngModel)]="formDataParis.username">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="passwordLondon">
+            Password
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="passwordParis" name="passwordParis" type="password" placeholder="********" [(ngModel)]="formDataParis.password">
+        </div>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit">
+          Log In
+        </button>
       </form>
-    </ng-container>
+    </div>
+  
+    <div id="Tokyo" class="tabcontent" *ngIf="activeTab === 'Tokyo'">
+      <!-- ... (sama dengan London, sesuaikan id dan nama formulir) -->
+      <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" (ngSubmit)="submitForm('Tokyo')">
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="usernameTokyo">
+            Username
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="username" name="usernameTokyo" type="text" placeholder="Username" [(ngModel)]="formDataTokyo.username">
+        </div>
+        <div class="mb-4">
+          <label class="block text-gray-700 text-sm font-bold mb-2" for="passwordTokyo">
+            Password
+          </label>
+          <input
+            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="passwordTokyo" name="passwordTokyo" type="password" placeholder="********" [(ngModel)]="formDataTokyo.password">
+        </div>
+        <button
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          type="submit">
+          Log In
+        </button>
+      </form>
+    </div>
+
   </div>
+
+
+ 
+
   
+</div> 
