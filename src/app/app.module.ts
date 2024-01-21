@@ -6,10 +6,12 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { PaymentComponent } from './payment/payment.component';
-import { PemesananComponent } from './pemesanan/pemesanan.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TabComponent } from './tab/tab.component';
+import { ConfirmPaymentComponent } from './confirm-payment/confirm-payment.component';
+import { PaymentMethodComponent } from './payment-method/payment-method.component';
+import { CompleteComponent } from './complete/complete.component';
 
 @NgModule({
   declarations: [
@@ -17,9 +19,11 @@ import { TabComponent } from './tab/tab.component';
     LoginComponent,
     HomeComponent,
     PaymentComponent,
-    PemesananComponent,
     NavbarComponent,
-    TabComponent
+    TabComponent,
+    ConfirmPaymentComponent,
+    PaymentMethodComponent,
+    CompleteComponent
   ],
   imports: [
     BrowserModule,
