@@ -7,41 +7,17 @@ import { Component } from '@angular/core';
 })
 export class PaymentComponent {
   currentStep: string = 'personal';
-  activeColor: string = 'teal';
+  steps: string[] = ['personal', 'account', 'message'];
 
-  steps: string[] = ['personal', 'account', 'message', 'confirm'];
-
-  goToNextStep() {
+  nextStep() {
     const currentIndex = this.steps.indexOf(this.currentStep);
+
     if (currentIndex < this.steps.length - 1) {
       this.currentStep = this.steps[currentIndex + 1];
-      this.setActiveColor(); // Atur warna aktif setiap kali langkah berubah
-    }
-  }
-
-  goToPreviousStep() {
-    const currentIndex = this.steps.indexOf(this.currentStep);
-    if (currentIndex > 0) {
-      this.currentStep = this.steps[currentIndex - 1];
-    }
-  }
-
-  setActiveColor() {
-    switch (this.currentStep) {
-      case 'personal':
-        this.activeColor = 'teal';
-        break;
-      case 'account':
-        this.activeColor = 'teal'; // Ganti dengan warna yang diinginkan untuk langkah ini
-        break;
-      case 'message':
-        this.activeColor = 'teal'; // Ganti dengan warna yang diinginkan untuk langkah ini
-        break;
-      case 'confirm':
-        this.activeColor = 'teal'; // Ganti dengan warna yang diinginkan untuk langkah ini
-        break;
-      default:
-        break;
+    } else {
+      // Optionally, you can handle what happens when reaching the last step
+      // For now, let's loop back to the first step
+      this.currentStep = this.steps[0];
     }
   }
 }

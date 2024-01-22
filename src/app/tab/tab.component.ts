@@ -37,12 +37,4 @@ export class TabComponent {
         return {};
     }
   }
-
-  // submitForm(form: any): void {
-  //   // Proses formulir sesuai kebutuhan
-  //   if (form.valid) {
-  //     console.log('Form submitted:', form.value);
-  //     // Lakukan tindakan formulir yang sesuai, misalnya, kirim data ke server
-  //   }
-  // }
 }
