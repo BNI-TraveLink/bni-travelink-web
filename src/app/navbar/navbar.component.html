@@ -1,1 +1,30 @@
-<p>navbar works!</p>
+<header class="sticky top-0 z-50">
+  <nav class=" font-inter bg-white w-full shadow">
+  <div class="flex justify-between items-center">
+    <img src="/assets/images/logo-bnitravelink.svg" class="w-[100px] bg-contain pl-4" alt="">
+    <ul class="hidden md:flex items-center pr-10 text-base font-semibold cursor-pointer">
+      <li class="text-secondary font-bold hover:text-orange-600 py-3 px-4"> <a routerLink="/myorder">My Order</a></li>
+      <li class="py-3 px-4">
+        <a href="#">
+          <img src="/assets/images/blank.png" class="w-14 h-14 rounded-full border" alt="">
+        </a>
+      </li>
+    </ul>
+    <button class="block md:hidden py-3 px-4 mx-2 rounded focus:outline-none hover:bg-orange-50 group">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        class="w-6 h-6 text-orange-600">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+      <div class="absolute top-0 -left-full h-screen w-8/12 bg-white border opacity-0
+      group-focus:left-0 group-focus:opacity-100 transition-all duration-300 cursor-pointer pt-10">
+        <img src="/assets/images/logo-bnitravelink.svg" class="w-[100px] h-[75px] bg-contain pl-4" alt="">
+        <ul class="flex flex-col items-center w-full text-base">
+          <li class=" text-start text-teal-700 font-bold hover:text-orange-600 py-4 px-6 w-full pt-10">
+            <a routerLink="/myorder">My Order</a>
+          </li>
+        </ul>
+      </div>
+    </button>
+  </div>
+</nav>
+</header>

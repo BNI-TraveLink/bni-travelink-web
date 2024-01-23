@@ -1,0 +1,74 @@
+<div class=" bg-white flex flex-col justify-center rounded-2xl font-poppins py-7 px-3 lg:px-3 md:px-3 shadow-md">
+    <h1 class="text-center text-black text-2xl font-medium">Payment</h1>
+    <div class="w-full mx-2 px-2 mt-6 flex flex-col justify-start md:flex-row gap-4 items-center">
+        <div class="w-full flex flex-col lg:flex-row md:flex-row">
+            <div class="md:border-e lg:border-e border-gray-200">
+                <nav class="flex flex-row items-center me-3 lg:flex-col md:space-y-2" aria-label="Tabs" role="tablist" data-hs-tabs-vertical="true">
+                    <button type="button" (click)="showTab(1)" [ngClass]="activeTab === 1 ? 'bg-[#00A2B7] text-white' : 'bg-neutral-400 text-neutral-600'" class=" w-full md:w-[120px] lg:w-[200px] h-[34px] sm:mb-2 flex rounded-3xl shadow-md md:py-6 justify-center items-center text-center" role="tab">
+                      Scan Qris
+                    </button>
+                    <button type="button" (click)="showTab(2)" [ngClass]="activeTab === 2 ? 'bg-[#00A2B7] text-white' : 'bg-neutral-400 text-neutral-600'" class=" w-full md:w-[120px] lg:w-[200px] h-[34px]  flex rounded-3xl shadow-md md:py-6 justify-center items-center text-center" role="tab">
+                      Transfer VA
+                    </button>
+                </nav>
+            </div>
+          <div class="w-full md:ms-3">
+            <div id="vertical-tab-with-border-1" *ngIf="activeTab === 1" role="tabpanel" aria-labelledby="vertical-tab-with-border-item-1">
+              <div class="w-full flex flex-col md:justify-center md:flex-row lg:flex-row lg:px-8">
+                <div class="w-full flex flex-col items-center my-4">
+                  <h2 class="text-secondary font-medium my-2">Please Scan the QR to continoue Payment</h2>
+                  <img src="/assets/images/qris_logo.svg" class="w-full h-11 mb-2" alt="">
+                  <img src="/assets/images/qris_code.svg" class="w-[180px] h-[180px] mb-4" alt="">
+                  <button class="w-[150px] h-12 px-3 rounded-md bg-orange-500 text-white font-semibold">Download Qr</button>
+                </div>
+                <div class="w-full lg:w-5/12  flex justify-center items-center ">
+                  <div class="bg-[#00A2B7] bg-opacity-[0.07] shadow-md p-7 rounded-2xl">
+                    <h2 class="text-orange-500 text-sm text-center font-medium">
+                      Payment Instructions
+                  </h2>
+                  <p class="text-secondary text-start font-normal text-xs">
+                      1.Login to BNI Mobile Banking.<br>
+                      2.Click the QRIS button.<br>
+                      3.Scan the QR code or enter the downloaded QR code photo.<br>
+                      4.Enter the transaction password.<br>
+                      5.QRIS payment transaction is successful.<br>
+                  </p>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+            <div id="vertical-tab-with-border-2" *ngIf="activeTab === 2" role="tabpanel" aria-labelledby="vertical-tab-with-border-item-2">
+              <div class="w-full flex flex-col md:justify-center md:flex-row lg:flex-row lg:px-8">
+                <div class="w-full flex flex-col items-center my-4">
+                  <h2 class="text-secondary font-medium my-2">Please transfer payment to the Virtual Account</h2>
+                  <img src="/assets/images/bni_logo.svg" class="w-full h-11 mb-2" alt="">
+                  <p class="text-secondary font-normal text-xs mt-8 mb-5">Your BNI Virtual Account</p>
+                  <h2 class="text-orange-600 text-4xl font-semibold mb-7">8297000194629723</h2>
+                  <button class="w-[150px] h-12 px-3 rounded-md bg-orange-500 text-white font-semibold">Copy VA</button>
+                </div>
+                <div class="w-full lg:w-5/12 flex justify-center items-center ">
+                  <div class="w-full h-full bg-[#00A2B7] bg-opacity-[0.07] shadow-md p-7 rounded-2xl">
+                    <h2 class="text-orange-500 text-base text-center font-medium">
+                      Payment Instructions
+                  </h2>
+                  <p class="text-secondary font-normal text-xs">
+                      1.Login to BNI Mobile Banking.<br>
+                      2.Select the "Transfer" menu.<br>
+                      3.Select the "Virtual Account Billing" menu then select a debit account.<br>
+                      4.Enter your Virtual Account number in the "new input" menu.<br>
+                      5.The bill to be paid will appear on the confirmation screen<br>
+                      6.Confirm the transaction and enter the Transaction Password.<br>
+                      7.Your Payment Has Been Successful.<br>
+                  </p>
+                  </div>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+    </div>  
+</div>
+
