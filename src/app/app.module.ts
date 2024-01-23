@@ -13,6 +13,7 @@ import { ConfirmPaymentComponent } from './confirm-payment/confirm-payment.compo
 import { PaymentMethodComponent } from './payment-method/payment-method.component';
 import { CompleteComponent } from './complete/complete.component';
 import { LoadingProcessComponent } from './loading-process/loading-process.component';
+import { MyorderComponent } from './myorder/myorder.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { LoadingProcessComponent } from './loading-process/loading-process.compo
     PaymentMethodComponent,
     CompleteComponent,
     LoadingProcessComponent,
+    MyorderComponent,
   ],
   imports: [
     BrowserModule,
