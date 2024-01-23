@@ -1,25 +1,55 @@
-<div class="w-full  bg-white flex flex-col justify-center rounded-md font-poppins py-7 px-8 lg:px-12 md:px12">
+<div class="bg-white flex flex-col justify-center rounded-2xl font-poppins py-7 px-8 lg:px-12 md:px12 shadow-md">
     <h1 class="text-center text-black text-2xl font-medium">Order Review</h1>
     <div class="md:flex md:flex-row md:justify-between md:gap-8 mt-5">
-        <div class="w-full mb-2 md:w-6/12 flex-col items-center bg-cyan-600 rounded-2xl px-4 lg:px-12 md:px-12">
-            <h2 class="text-center bg-red-500 text-sky-900 text-xs font-semibold leading-snug">Station Details</h2>
-            <!-- <div class=" w-full flex justify-center items-center h-8 sm:h-6 bg-cyan-600 rounded-2xl">
-                <p class="text-white text-center text-xs">You will get a QR code after payment</p>
-            </div>
-            <div class="flex flex-col mt-5">
-                <div class="flex flex-row items-center gap-2">
-                    <img src="/assets/images/departure.svg" class="w-8 h-8" alt=""/>
-                    <h5 class="text-sky-900 text-sm font-semibold">Jakarta Kota Station</h5>
+        <div class="w-full min-h-[300px] md:w-6/12 lg:w-6/12 md:h-[300px] mb-8 md:mb-2 bg-[#00A2B7] bg-opacity-[0.07] rounded-2xl shadow-md  px-8">
+            <div id="content" class="h-full flex flex-col justify-center items-center px-5 py-5">
+                <h2 class="text-center text-sky-900 text-sm font-semibold leading-snug mb-4">Station Details</h2>
+                <div class="w-full h-8 flex justify-center items-center text-sm py-3 px-2 md:py-3 md:px-3 md:text-sm lg:text-base bg-[#00A2B7] mt-2 rounded-2xl text-center text-white font-medium">
+                    You will get a QR code after payment
                 </div>
-                <div class="flex flex-row items-center gap-2">
-                    <img src="/assets/images/arrival.svg" class="w-8 h-8" alt=""/>
-                    <div class="flex flex-col">
-                        <h5 class="text-sky-900 text-sm font-semibold">Tanjung Barat</h5>
-                        <p>Valid until 28 Feb 2024, 03.00 pm</p>
+                <div class="w-full h-full flex flex-col ">
+                    <div id="destination" class="relative my-10">
+                        <!-- Border -->
+                        <div class="border-r-2 border-dashed border-orange-500 h-20 md:h-16 absolute -left-0 top-2 z-10"></div>
+                
+                        <!-- First Item - Image and Text -->
+                        <div class="flex items-center absolute left-[-12px] top-0 transform -translate-y-1/2">
+                            <!-- Image -->
+                            <img src="/assets/images/arrival.svg" class="w-6 h-6 mr-2" alt="">
+                
+                            <!-- Text -->
+                            <span class="text-base text-secondary font-semibold">Jakarta Station</span>
+                        </div>
+                
+                        <!-- Second Item - Image and Text -->
+                        <div class="flex items-center absolute left-5 top-10 transform -translate-y-1/2 ">
+                
+                            <!-- Text -->
+                            <div class="flex flex-col">
+                                <span class="text-sm font-inter">0 km</span>
+                            </div>
+                            
+                        </div>
+
+                        <div class="flex items-center absolute left-[-12px] top-24 transform -translate-y-1/2 ">
+                            <!-- Image -->
+                            <img src="/assets/images/departure.svg" class="w-6 h-6 mr-2" alt="">
+                
+                            <!-- Text -->
+                            <div class="flex flex-col">
+                                <span class="text-base text-secondary font-semibold">Tanjung Duren</span>
+                                <span class="text-sm text-orange-600 font-light font-inter">Valid until 24 Januari 2022</span>
+                            </div>
+                            
+                        </div>
+                        
                     </div>
                 </div>
-            </div> -->
+                
+            </div>
+            
         </div>
+       
         <div class="w-full md:w-6/12 flex-col justify-start items-center px-4 lg:px-12 md:px-12">
             <div class="flex flex-row mb-4 justify-between">
                 <h4 class="text-sky-900 text-base font-medium font-['Inter'] leading-snug">
@@ -48,7 +78,7 @@
 
             <div id="term-condition" class="w-full mt-8 bg-violet-200 flex flex-row rounded-2xl py-3 px-6">
                 <img src="/assets/images/warning-purple.svg" class="w-8 h-8 text-violet-500" alt="">
-                <p class="ml-2 text-sm text-purple-500">I have read and agree to the <b>terms and conditions</b> of ticket purchase</p>
+                <p class="ml-2 text-xs text-purple-500">I have read and agree to the <b>terms and conditions</b> of ticket purchase</p>
             </div>
 
             <button
@@ -56,44 +86,9 @@
             routerLink="/payment">
             Buy Ticket
           </button>
-
-
-            <!-- <div class=" w-full flex justify-center items-center h-8 sm:h-6 bg-cyan-600 rounded-2xl">
-                <p class="text-white text-center text-xs">You will get a QR code after payment</p>
-            </div>
-            <div class="flex flex-col mt-5">
-                <div class="flex flex-row items-center gap-2">
-                    <img src="/assets/images/departure.svg" class="w-8 h-8" alt=""/>
-                    <h5 class="text-sky-900 text-sm font-semibold">Jakarta Kota Station</h5>
-                </div>
-                <div class="flex flex-row items-center gap-2">
-                    <img src="/assets/images/arrival.svg" class="w-8 h-8" alt=""/>
-                    <div class="flex flex-col">
-                        <h5 class="text-sky-900 text-sm font-semibold">Tanjung Barat</h5>
-                        <p>Valid until 28 Feb 2024, 03.00 pm</p>
-                    </div>
-                </div>
-            </div> -->
         </div>
-        <!-- <div class="w-full flex-col items-center bg-cyan-600 bg-opacity-5 rounded-2xl shadow-xl pt-5 px-12">
-            <h2 class="text-center text-sky-900 text-xs font-semibold leading-snug">Station Details</h2>
-            <div class=" w-full flex justify-center items-center h-8 sm:h-6 bg-cyan-600 rounded-2xl">
-                <p class="text-white text-center text-xs">You will get a QR code after payment</p>
-            </div>
-            <div class="flex flex-col mt-5">
-                <div class="flex flex-row items-center gap-2">
-                    <img src="/assets/images/departure.svg" class="w-8 h-8" alt=""/>
-                    <h5 class="text-sky-900 text-sm font-semibold">Jakarta Kota Station</h5>
-                </div>
-                <div class="flex flex-row items-center gap-2">
-                    <img src="/assets/images/arrival.svg" class="w-8 h-8" alt=""/>
-                    <div class="flex flex-col">
-                        <h5 class="text-sky-900 text-sm font-semibold">Tanjung Barat</h5>
-                        <p>Valid until 28 Feb 2024, 03.00 pm</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class=" w-full bg-yellow-200 items-start">Hello</div> -->
     </div>
 </div>
+
+
+

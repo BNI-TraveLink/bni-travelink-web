@@ -12,6 +12,7 @@ import { TabComponent } from './tab/tab.component';
 import { ConfirmPaymentComponent } from './confirm-payment/confirm-payment.component';
 import { PaymentMethodComponent } from './payment-method/payment-method.component';
 import { CompleteComponent } from './complete/complete.component';
+import { LoadingProcessComponent } from './loading-process/loading-process.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CompleteComponent } from './complete/complete.component';
     TabComponent,
     ConfirmPaymentComponent,
     PaymentMethodComponent,
-    CompleteComponent
+    CompleteComponent,
+    LoadingProcessComponent,
   ],
   imports: [
     BrowserModule,

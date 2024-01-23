@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrl: './payment-method.component.scss'
 })
 export class PaymentMethodComponent {
+  activeTab: number = 1;
 
+  showTab(tabNumber: number) {
+    this.activeTab = tabNumber;
+  }
 }
