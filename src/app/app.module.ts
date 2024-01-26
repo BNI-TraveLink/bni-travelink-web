@@ -14,6 +14,8 @@ import { PaymentMethodComponent } from './payment-method/payment-method.componen
 import { CompleteComponent } from './complete/complete.component';
 import { LoadingProcessComponent } from './loading-process/loading-process.component';
 import { MyorderComponent } from './myorder/myorder.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { MyorderComponent } from './myorder/myorder.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [
     provideClientHydration()

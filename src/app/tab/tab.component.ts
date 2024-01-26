@@ -1,15 +1,108 @@
 // tab.component.ts
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HomeService } from '../service/home.service';
+import { Init } from 'v8';
+import { response } from 'express';
+import { Station } from '../models/stations';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab',
   templateUrl: './tab.component.html',
   styleUrls: ['./tab.component.scss']
 })
-export class TabComponent {
-  activeTab: string = 'London';
+export class TabComponent implements OnInit {
+  activeTab: string = 'KRL';
   title = "Halo"
+  stations: Station[] = []
+  destinationStation:Station[] =[]
+
+  isSearching:boolean = false;
+  isSearchingDestination:boolean =false;
+
+  searchedStation:any=[]
+
+  searchedDestination:any=[]
+
+  departureControl = new FormControl();
+  destinationControl = new FormControl();
+
+  constructor(private homeService:HomeService, private router:Router){}
+  ngOnInit(){
+    this.homeService.getAllStation().subscribe(response=>{
+      console.log("Result"+response)
+      this.stations = response
+      this.destinationStation = response
+    })
+
+    this.departureControl.valueChanges.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((value)=>this.homeService.searchStation(value))
+    ).subscribe((result)=>{
+      
+      this.searchedStation = result.length > 0 ? result : [{ station_name: 'No result' }];
+      this.isSearching = true;
+    })
+
+    this.destinationControl.valueChanges.pipe( debounceTime(300),
+    distinctUntilChanged(),
+    switchMap((value)=>this.homeService.searchDestination(value))
+  ).subscribe((result)=>{
+    this.searchedDestination = result;
+    this.isSearchingDestination = true;
+  })
+
+  }
+  selectedStation(stations:Station){
+    console.log('Selected Station', stations)
+    this.departureControl.setValue(stations.station_name)
+    // this.destinationControl.setValue(stations.station_name)
+    this.isSearching = false
+  }
+
+   navigateToPaymentMethod() {
+    // Lakukan navigasi ke langkah PaymentMethodComponent
+    this.router.navigate(['pay/confirm']);
+  }
+
+  selectedDestination(stations:Station){
+    console.log('Selected Station', stations)
+    // this.departureControl.setValue(stations.station_name)
+    this.destinationControl.setValue(stations.station_name)
+    this.isSearchingDestination = false
+  }
+
+  handleDepartureKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      // Pilih stasiun pertama otomatis jika hasil pencarian tidak kosong
+      if (this.searchedStation.length> 0) {
+        this.departureControl.setValue(this.searchedStation[0].station_name);
+        // this.destinationControl.setValue(this.searchedDestination[0].station_name)
+        this.isSearching = false;
+        event.preventDefault(); // Sembunyikan hasil pencarian setelah Enter
+      }
+      else{
+        this.departureControl.setValue('');
+      }
+    }
+  }
+
+  handleDestinationKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Enter') {
+      // Pilih stasiun pertama otomatis jika hasil pencarian tidak kosong
+      if (this.searchedDestination.length>0) {
+        // this.departureControl.setValue(this.searchedStation[0].station_name);
+        this.destinationControl.setValue(this.searchedDestination[0].station_name)
+        this.isSearchingDestination = false;
+        event.preventDefault(); // Sembunyikan hasil pencarian setelah Enter
+      }
+    }
+  }
+  
 
   formDataLondon: any = { username: '', password: '' };
   formDataParis: any = { username: '', password: '' };
@@ -19,6 +112,18 @@ export class TabComponent {
     this.activeTab = cityName;
   }
 
+  toggleStations(): void {
+  const departureValue = this.departureControl.value;
+  this.departureControl.setValue(this.destinationControl.value);
+  this.destinationControl.setValue(departureValue);
+}
+
+
+navigateToPay() {
+  // Lakukan navigasi ke langkah PaymentMethodComponent
+  this.router.navigate(['/payment/pay']);
+}
+
   submitForm(cityName: string): void {
     const formData = this.getFormData(cityName);
     console.log(`Form data for ${cityName}:`, formData);
@@ -27,7 +132,7 @@ export class TabComponent {
 
   private getFormData(cityName: string): any {
     switch (cityName) {
-      case 'London':
+      case 'KRL':
         return { ...this.formDataLondon };
       case 'Paris':
         return { ...this.formDataParis };

@@ -3,49 +3,30 @@
   <div class="relative">
     <div id="step" class="px-16 py-5 lg:mx-52">
       <div class="flex items-center">
-        <div id="personal-form" class="flex items-center relative" [ngClass]="(currentStep == 'personal')?'text-secondary': 'text-gray-300'">
-          <div class="flex justify-center items-center rounded-full font-semibold text-xl transition duration-500 ease-in-out h-12 w-12 py-3 border-2"[ngClass]="(currentStep == 'personal')?'border-[#00A2B7]': 'border-[#00A2B7]'">
+        <div id="personal-form" class="flex items-center text-gray-500 relative text-gray-300'">
+          <div class="flex justify-center items-center rounded-full font-semibold text-xl transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-gray-300'">
             1
           </div>
-          <div class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase"[ngClass]="{'text-teal-600':currentStep == 'personal'}">Personal</div>
+          <div class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase">Order</div>
         </div>
-        <div class="flex-auto border-t-2 transition duration-500 ease-in-out "[ngClass]="(currentStep == 'personal')?'border-[#00A2B7]': 'border-[#00A2B7]'"></div>
-        <div id="account-form" class="flex items-center relative"[ngClass]="(currentStep == 'account')?'text-teal-600': 'text-gray-300'">
-          <div class="flex justify-center items-center rounded-full font-semibold text-xl transition duration-500 ease-in-out h-12 w-12 py-3 border-2"[ngClass]="(currentStep == 'personal')?'border-[#00A2B7]': 'border-[#00A2B7]'">
+        <div class="flex-auto border-t-2 transition duration-500 ease-in-out border-gray-300"></div>
+        <div id="account-form" class="flex items-center relative text-gray-300'">
+          <div class="flex justify-center items-center rounded-full font-semibold text-xl transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-gray-300'">
             2
           </div>
-          <div class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase">Account</div>
+          <div class="absolute top-0 -ml-10 text-center text-gray-500 mt-16 w-32 text-xs font-medium uppercase">Review</div>
         </div>
-        <div class="flex-auto border-t-2 transition duration-500 ease-in-out" [ngClass]="(currentStep == 'account')?'border-[#00A2B7]': 'border-[#00A2B7]'"></div>
-        <div id="message-form" class="flex items-center text-gray-500 relative"[ngClass]="(currentStep == 'message')?'text-teal-600': 'text-gray-300'">
-          <div class="flex justify-center items-center rounded-full font-semibold text-xl transition duration-500 ease-in-out h-12 w-12 py-3 border-2"[ngClass]="(currentStep == 'personal')?'border-[#00A2B7]': 'border-[#00A2B7]'">
+        <div class="flex-auto border-t-2 transition duration-500 ease-in-out border-gray-300'"></div>
+        <div id="message-form" class="flex items-center text-gray-500 relative text-gray-300'">
+          <div class="flex justify-center items-center rounded-full font-semibold text-xl transition duration-500 ease-in-out h-12 w-12 py-3 border-2 border-gray-300'">
             3
           </div>
-          <div class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase">Message</div>
+          <div class="absolute top-0 -ml-10 text-center mt-16 w-32 text-xs font-medium uppercase">Pay</div>
         </div>
       </div>
     </div>
-    <div id="form" class="w-full mt-8 p-4 md:px-8 lg:px-52">
-      <app-confirm-payment *ngIf="currentStep === 'personal'"></app-confirm-payment>
-      <app-payment-method *ngIf="currentStep === 'account'"></app-payment-method>
-      <app-complete *ngIf="currentStep === 'message'"></app-complete>
-  
-      <div class="flex p-2 mt-4">
-        <button class="text-base hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-          hover:bg-gray-200 bg-gray-100 text-gray-700 border duration-200 ease-in-out border-gray-600 transition">
-          Previous
-        </button>
-        <div class="flex-auto flex flex-row-reverse">
-          <button (click)="nextStep()" class="text-base ml-2 hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-            hover:bg-teal-600 bg-teal-600 text-teal-100 border duration-200 ease-in-out border-teal-600 transition">
-            Next
-          </button>
-          <button class="text-base hover:scale-110 focus:outline-none flex justify-center px-4 py-2 rounded font-bold cursor-pointer 
-            hover:bg-teal-200 bg-teal-100 text-teal-700 border duration-200 ease-in-out border-teal-600 transition">
-            Skip
-          </button>
-        </div>
-      </div>
+    <div id="form" class="w-full mt-8 p-4 md:px-8 lg:px-28">
+      <router-outlet></router-outlet>
     </div>
   </div>
  </div>

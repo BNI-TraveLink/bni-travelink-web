@@ -1,90 +1,132 @@
 <!-- tab.component.html -->
-<div class="relative mt-8 p-4 sm:mx-0 md:mx-5">
+<div class="relative mt-8 p-4">
   <div class="absolute inset-0 top-0 z-[2]">
     <div id="tab-navigation" class="flex justify-between items-center gap-0 shadow-md bg-white rounded-2xl py-4 px-4 md:mx-16">
       <button
-        class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'London' ? 'text-secondary' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
-        (click)="openCity('London')">
+        class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'KRL' ? 'text-orange-500 underline' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
+        (click)="openCity('KRL')">
         <img src="/assets/images/icon-krl.svg" class="hidden sm:block w-9 h-9 mr-1" />
         <span class="text-base lg:text-base md:text-base sm:text-sm">Commuter Line</span>
       </button>
   
       <button
-        class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'Paris' ? 'text-secondary' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
+        class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'Paris' ? 'text-orange-500 underline' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
         (click)="openCity('Paris')">
-        <img src="/assets/images/icon-krl.svg" class="hidden sm:block w-9 h-9 mr-1" />
+        <img src="/assets/images/mrt.svg" class="hidden sm:block w-9 h-9 mr-1" />
+        <span class="text-base lg:text-base md:text-base sm:text-sm">MRT</span>
+      </button>
+  
+      <button
+        class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'Tokyo' ? 'text-orange-500 underline' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
+        (click)="openCity('Tokyo')">
+        <img src="/assets/images/lrt.svg" class="hidden sm:block w-9 h-9 mr-1" />
         <span class="text-base lg:text-base md:text-base sm:text-sm">LRT</span>
       </button>
   
       <button
-        class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'Tokyo' ? 'text-secondary' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
-        (click)="openCity('Tokyo')">
-        <img src="/assets/images/icon-krl.svg" class="hidden sm:block w-9 h-9 mr-1" />
-        <span class="text-base lg:text-base md:text-base sm:text-sm">TJ</span>
-      </button>
-  
-      <button
-        class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'Other' ? 'text-secondary' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
+        class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'Other' ? 'text-orange-500 underline' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
         (click)="openCity('Other')">
-        <img src="/assets/images/icon-krl.svg" class="hidden sm:block w-9 h-9 mr-1" />
-        <span class="text-base lg:text-base md:text-base sm:text-sm">MRT</span>
+        <img src="/assets/images/tije.svg" class="hidden sm:block w-9 h-9 mr-1" />
+        <span class="text-base lg:text-base md:text-base sm:text-sm">TiJe</span>
       </button>
     </div>
   </div>
   
 
   <div class="inset-0 absolute z-[1]">
-    <div id="London" class="tabcontent w-full flex flex-col justify-center items-center relative" *ngIf="activeTab === 'London'">
-      <div class="lg:h-[436px] md:h-[436px] sm:h-[800px] w-full py-8 mt-16 flex flex-col justify-center items-center  bg-neutral-200 rounded-3xl">
-        <img src="/assets/images/logo-commuter-line.svg" class="w-28 h-10 mb-4" alt="">
-      <form class="w-full flex flex-col pt-4 px-10 mb-4" (ngSubmit)="submitForm('London')">
-        <div id="destination-krl" class="flex flex-col justify-center md:flex-row md:items-center md:justify-between">
-          <div class="w-full items-center mb-4">
-            <label class="block text-secondary text-sm font-bold mb-2" for="usernameLondon">
+    <div id="KRL" class="tabcontent w-full flex flex-col justify-center items-center relative" *ngIf="activeTab === 'KRL'">
+      <div class="lg:h-[436px] md:h-[436px] sm:h-[800px] w-full pt-24 md:py-8 md:mt-16 flex flex-col justify-center items-center  bg-neutral-200 rounded-3xl">
+        <img src="/assets/images/logo-commuter-line.svg" class="w-40 h-10 mb-4" alt="logo">
+      <form class="w-full flex flex-col pt-4 px-10 mb-4" (ngSubmit)="submitForm('KRL')">
+        <div id="destination-krl" class="flex flex-col md:flex-row">
+          <div class="w-full items-center relative mb-4">
+            <label class="block text-secondary text-sm font-bold mb-2" for="departure">
               From
             </label>
-            <div
-              class="inline-flex rounded-2xl shadow w-full py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <div class="inline-flex rounded-2xl shadow w-full py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
               <img src="/assets/images/train-icon.svg" alt="">
-              <input class=" w-full appearance-none border-none focus:outline-none ml-2" id="usernameLondon" name="usernameLondon" type="text"
-                placeholder="Select Departure">
+              <input
+                class="w-full appearance-none border-none focus:outline-none ml-2"
+                id="departure"
+                name="departure"
+                type="text"
+                autocomplete="off"
+                placeholder="Select Departure"
+                [formControl]="departureControl"
+                (keydown)="handleDepartureKeydown($event)"
+              />
+            </div>
+            <div *ngIf="isSearching" class="search-results absolute mt-2 w-full top-full left-0 bg-white border border-solid border-gray-300 shadow-md z-10 max-h-48 overflow-y-auto">
+              <!-- Display search results here -->
+              <div *ngFor="let station of searchedStation" (click)="selectedStation(station)" class="py-2 px-4 cursor-pointer border-b text-secondary border-solid border-gray-300">
+                {{ station.station_name }}
+              </div>
             </div>
           </div>
-          <img src="/assets/images/exchange.svg" class="w-10 h-10 bg-contain" />
-          <div class="w-full items-center mb-4">
-            <label class="block text-secondary text-sm font-bold mb-2" for="usernameLondon">
+        
+          <div class="w-full md:w-1/3 flex justify-start md:justify-center items-center">
+            <button (click)="toggleStations()">
+              <img src="/assets/images/exchange.svg" class="w-10 h-10 bg-contain" />
+            </button>
+          </div>
+        
+          <div class="w-full items-center relative mb-4">
+            <label class="block text-secondary text-sm font-bold mb-2" for="destination">
               To
             </label>
-            <div
-              class="inline-flex rounded-2xl shadow w-full py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <div class="inline-flex rounded-2xl shadow w-full py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
               <img src="/assets/images/train-icon.svg" alt="">
-              <input class=" w-full appearance-none border-none focus:outline-none ml-2" id="usernameLondon" name="usernameLondon" type="text"
-                placeholder="Select Destination">
+              <input
+                class="w-full appearance-none border-none focus:outline-none ml-2"
+                id="destination"
+                name="destination"
+                type="text"
+                autocomplete="off"
+                placeholder="Select Destination"
+                [formControl]="destinationControl"
+                (keydown)="handleDestinationKeydown($event)"
+              />
+            </div>
+            <div *ngIf="isSearchingDestination" class="search-results absolute mt-2 w-full h-48 top-full left-0 bg-white border border-solid border-gray-300 shadow-md z-10 max-h-48 overflow-y-auto">
+              <!-- Display search results here -->
+              <div *ngFor="let destinationStation of searchedDestination" (click)="selectedDestination(destinationStation)" class="py-2 px-4 cursor-auto border-b border-solid border-gray-300">
+                {{ destinationStation.station_name }}
+              </div>
+            </div>
+          </div>
+        </div> 
+        <div id="choose-krl" class="flex flex-col md:flex-row justify-between items-center space-x-4 mb-8">
+          <div class="w-full items-center mb-4 relative">
+            <div id="passenger-amount-form">
+              <label for="passengerCount" class="block text-sm text-secondary font-semibold mb-2">Passengers</label>
+              <div class="w-full inline-flex rounded-2xl shadow py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                <img src="/assets/images/icon-passengers.svg" alt="">
+                <div class="w-full mt-1 relative">
+                  <select id="passengerCount" name="passengerCount" class="form-select block w-full px-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm rounded-md">
+                    <option value="" disabled selected hidden class="cursor-not-allowed text-gray-500"></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="4">5</option>
+                  </select>
+                </div>
+              </div>
+              <p class="text-xs text-stone-500 mt-2">Maximum 5 tickets</p>
+            </div>
+          </div>
+          <div class="w-full items-center mb-5 md:mb-0">
+            <div id="warning" class="flex items-center px-5 py-3 bg-purple-200 rounded-2xl">
+              <img src="/assets/images/warning-purple.svg" class="w-6 h-6"/>
+              <p class="ml-4 text-purple-500 text-xs font-normal leading-3">It's important to remember that you must exit at the destination station. If you don't, the QR code you receive won't be useful.</p>
             </div>
           </div>
         </div>
-        <div id="passenger-krl" class=" mb-4">
-          <label for="passengerCount" class="block text-sm text-secondary font-semibold mb-2">Passengers</label>
-          <div
-          class="w-full inline-flex rounded-2xl shadow py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-          <img src="/assets/images/icon-passengers.svg" alt="">
-          <div class=" w-full mt-1 relative">
-            <select id="passengerCount" name="passengerCount" class="form-select block w-full px-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm rounded-md">
-              <option value="" disabled selected hidden class="cursor-not-allowed text-gray-500">Pilih Jumlah Penumpang</option>
-              <option value="1">1 Penumpang</option>
-              <option value="2">2 Penumpang</option>
-              <option value="3">3 Penumpang</option>
-              <option value="4">4 Penumpang</option>
-              <option value="4">5 Penumpang</option>
-            </select>
-          </div>
-        </div>  
-        </div>
+        
       </form>
       </div>
-      <button
-      class="w-96 h-16 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 absolute -bottom-4 rounded-2xl focus:outline-none focus:shadow-outline"
-      routerLink="/payment">
+      <button (click)="navigateToPaymentMethod()"
+      class="w-96 h-16 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 absolute -bottom-4 rounded-2xl focus:outline-none focus:shadow-outline">
       Buy Ticket
     </button>
     </div>

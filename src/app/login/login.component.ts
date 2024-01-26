@@ -1,36 +1,39 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { AuthService } from './service/auth.service';
+import { HttpClient} from '@angular/common/http';
+import { Component, OnInit, inject } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { LoginService } from '../service/login.service';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
+import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
-  loginForm: FormGroup;
+export class LoginComponent implements OnInit {
+  loginForm?:any;
+  http = inject(HttpClient)
+  localStorages = inject(LocalStorageService)
+  
+  
+  constructor(private fb:FormBuilder, private router:Router,private loginService:LoginService){}
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router:Router){
-    this.loginForm = this.formBuilder.group({
-      userID : [''],
-      mpin:['']
+  ngOnInit():void{
+    this.loginForm = this.fb.group({
+      userid:['', Validators.required],
+      mpin:['', Validators.required]
     })
   }
 
-  onSubmit(): void{
-    const userID = this.loginForm.get('userID')?.value
-    const mpin = this.loginForm.get('mpin')?.value
-    console.log('Form submitted!');
-    console.log(this.loginForm.value);
-
-
-    if(this.authService.login(userID, mpin)){
-      this.router.navigate(['home'])
-    }
-    else{
-      this.router.navigate(['login'])
+  onSubmit():void{
+    if(this.loginForm.valid){
+      const userid = this.loginForm.get('userid').value
+      const mpin = this.loginForm.get('mpin').value
+      this.loginService.loginByHash(userid,mpin).subscribe(response =>{
+        const data = response
+        localStorage.setItem('token', data.jwt)
+        this.router.navigate(['home'])
+      })
     }
   }
 
