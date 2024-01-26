@@ -3,7 +3,6 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../service/login.service';
 import { Router } from '@angular/router';
-import { LocalStorageService } from '../local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +12,7 @@ import { LocalStorageService } from '../local-storage.service';
 export class LoginComponent implements OnInit {
   loginForm?:any;
   http = inject(HttpClient)
-  localStorages = inject(LocalStorageService)
-  
+
   
   constructor(private fb:FormBuilder, private router:Router,private loginService:LoginService){}
 
@@ -31,7 +29,7 @@ export class LoginComponent implements OnInit {
       const mpin = this.loginForm.get('mpin').value
       this.loginService.loginByHash(userid,mpin).subscribe(response =>{
         const data = response
-        localStorage.setItem('token', data.jwt)
+        console.log(data)
         this.router.navigate(['home'])
       })
     }

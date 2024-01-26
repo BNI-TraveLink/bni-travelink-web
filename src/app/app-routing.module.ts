@@ -17,8 +17,8 @@ const routes: Routes = [
     {path:'confirm', component:ConfirmPaymentComponent},
     {path:'process', component:PaymentMethodComponent},
     {path:'complete', component:CompleteComponent}
-  ]},
-  {path:'myorder', component:MyorderComponent}
+  ], canActivate:[authGuard]},
+  {path:'myorder', component:MyorderComponent, canActivate:[authGuard]}
  
 ];
 

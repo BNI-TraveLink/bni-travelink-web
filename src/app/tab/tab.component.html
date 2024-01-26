@@ -5,29 +5,29 @@
       <button
         class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'KRL' ? 'text-orange-500 underline' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
         (click)="openCity('KRL')">
-        <img src="/assets/images/icon-krl.svg" class="hidden sm:block w-9 h-9 mr-1" />
-        <span class="text-base lg:text-base md:text-base sm:text-sm">Commuter Line</span>
+        <img src="/assets/images/icon-krl.svg" class=" w-9 h-9 mr-1" />
+        <span class="hidden sm:block text-base lg:text-base md:text-base sm:text-sm">Commuter Line</span>
       </button>
   
       <button
         class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'Paris' ? 'text-orange-500 underline' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
         (click)="openCity('Paris')">
         <img src="/assets/images/mrt.svg" class="hidden sm:block w-9 h-9 mr-1" />
-        <span class="text-base lg:text-base md:text-base sm:text-sm">MRT</span>
+        <span class=" hidden sm:block text-base lg:text-base md:text-base sm:text-sm">MRT</span>
       </button>
   
       <button
         class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'Tokyo' ? 'text-orange-500 underline' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
         (click)="openCity('Tokyo')">
-        <img src="/assets/images/lrt.svg" class="hidden sm:block w-9 h-9 mr-1" />
-        <span class="text-base lg:text-base md:text-base sm:text-sm">LRT</span>
+        <img src="/assets/images/lrt.svg" class=" w-9 h-9 mr-1" />
+        <span class="text-base lg:text-base hidden sm:block md:text-base sm:text-sm">LRT</span>
       </button>
   
       <button
         class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'Other' ? 'text-orange-500 underline' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
         (click)="openCity('Other')">
-        <img src="/assets/images/tije.svg" class="hidden sm:block w-9 h-9 mr-1" />
-        <span class="text-base lg:text-base md:text-base sm:text-sm">TiJe</span>
+        <img src="/assets/images/tije.svg" class=" w-9 h-9 mr-1" />
+        <span class="text-base lg:text-base hidden sm:block md:text-base sm:text-sm">TiJe</span>
       </button>
     </div>
   </div>
@@ -37,7 +37,7 @@
     <div id="KRL" class="tabcontent w-full flex flex-col justify-center items-center relative" *ngIf="activeTab === 'KRL'">
       <div class="lg:h-[436px] md:h-[436px] sm:h-[800px] w-full pt-24 md:py-8 md:mt-16 flex flex-col justify-center items-center  bg-neutral-200 rounded-3xl">
         <img src="/assets/images/logo-commuter-line.svg" class="w-40 h-10 mb-4" alt="logo">
-      <form class="w-full flex flex-col pt-4 px-10 mb-4" (ngSubmit)="submitForm('KRL')">
+      <form class="w-full flex flex-col pt-4 px-10 mb-4">
         <div id="destination-krl" class="flex flex-col md:flex-row">
           <div class="w-full items-center relative mb-4">
             <label class="block text-secondary text-sm font-bold mb-2" for="departure">
@@ -102,7 +102,7 @@
               <div class="w-full inline-flex rounded-2xl shadow py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                 <img src="/assets/images/icon-passengers.svg" alt="">
                 <div class="w-full mt-1 relative">
-                  <select id="passengerCount" name="passengerCount" class="form-select block w-full px-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm rounded-md">
+                  <select id="passengerCount" name="passengerCount" class="form-select block w-full px-3 py-2 text-base border-gray-300 focus:outline-none focus:ring-orange-500 focus:border-orange-500 sm:text-sm rounded-md" [formControl]="passengerCountControl">
                     <option value="" disabled selected hidden class="cursor-not-allowed text-gray-500"></option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -125,7 +125,7 @@
         
       </form>
       </div>
-      <button (click)="navigateToPaymentMethod()"
+      <button (click)="submitForm('KRL')"
       class="w-96 h-16 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 absolute -bottom-4 rounded-2xl focus:outline-none focus:shadow-outline">
       Buy Ticket
     </button>

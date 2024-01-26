@@ -7,7 +7,7 @@
                 <div class="w-full h-8 flex justify-center items-center text-sm py-3 px-2 md:py-3 md:px-3 md:text-sm lg:text-base bg-[#00A2B7] mt-2 rounded-2xl text-center text-white font-medium">
                     You will get a QR code after payment
                 </div>
-                <div class="w-full h-full flex flex-col ">
+                <div class="w-full h-full flex flex-col" *ngIf="formData">
                     <div id="destination" class="relative my-10">
                         <!-- Border -->
                         <div class="border-r-2 border-dashed border-orange-500 h-20 md:h-16 absolute -left-0 top-2 z-10"></div>
@@ -18,17 +18,7 @@
                             <img src="/assets/images/arrival.svg" class="w-6 h-6 mr-2" alt="">
                 
                             <!-- Text -->
-                            <span class="text-base text-secondary font-semibold">Jakarta Station</span>
-                        </div>
-                
-                        <!-- Second Item - Image and Text -->
-                        <div class="flex items-center absolute left-5 top-10 transform -translate-y-1/2 ">
-                
-                            <!-- Text -->
-                            <div class="flex flex-col">
-                                <span class="text-sm font-inter">0 km</span>
-                            </div>
-                            
+                            <span class="text-base text-secondary font-semibold">{{formData.departure}}</span>
                         </div>
 
                         <div class="flex items-center absolute left-[-12px] top-24 transform -translate-y-1/2 ">
@@ -37,7 +27,7 @@
                 
                             <!-- Text -->
                             <div class="flex flex-col">
-                                <span class="text-base text-secondary font-semibold">Tanjung Duren</span>
+                                <span class="text-base text-secondary font-semibold">{{formData.destination}}</span>
                                 <span class="text-sm text-orange-600 font-light font-inter">Valid until 24 Januari 2022</span>
                             </div>
                             
@@ -56,7 +46,7 @@
                     Tiket
                 </h4>
                 <p class="text-sky-900 text-base font-medium font-['Inter'] leading-snug">
-                    Rp.3000
+                    Rp.{{price}}
                 </p>
             </div>
             <div class="flex flex-row mb-4 justify-between">
@@ -64,7 +54,7 @@
                     Total Passenger
                 </h4>
                 <p class="text-secondary text-base font-medium font-['Inter'] leading-snug">
-                    3 People
+                    {{formData.passangers}}
                 </p>
             </div>
             <div class="flex flex-row mb-4 justify-between">
@@ -72,7 +62,7 @@
                     Total Payment
                 </h4>
                 <p class="text-secondary text-base font-semibold font-['Inter'] leading-snug">
-                    Rp.15000
+                    Rp.{{price * formData.passangers}}
                 </p>
             </div>
 
@@ -81,7 +71,7 @@
                 <p class="ml-2 text-xs text-purple-500">I have read and agree to the <b>terms and conditions</b> of ticket purchase</p>
             </div>
 
-            <button (click)="navigateToProcess()"
+            <button (click)="onSubmit()"
             class="w-full h-16 text-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 mt-8 rounded-2xl focus:outline-none focus:shadow-outline">
             Buy ticket
           </button>
