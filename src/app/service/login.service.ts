@@ -29,6 +29,8 @@ export class LoginService{
         const formData = new FormData();
         formData.append('userId', userId);
         formData.append('mpin', mpin);
+
+        console.log("Login",formData)
     
         // Using Axios for the HTTP request with form data
         return new Observable<Login>(observer => {
@@ -37,13 +39,11 @@ export class LoginService{
                   const data = response.data; // Extract the required fields
                   this.login = data
 
-                  console.log(data)
                   localStorage.setItem('userID',this.login.userId)
                   localStorage.setItem('token',this.login.jwt)
 
                   this._isLoggedIn.next(true)
 
-                  console.log(this.login.userId);
                   observer.next(data);
                   observer.complete();
               })

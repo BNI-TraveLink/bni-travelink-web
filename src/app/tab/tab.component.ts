@@ -32,11 +32,14 @@ export class TabComponent implements OnInit {
   destinationControl = new FormControl();
   passengerCountControl = new FormControl();
 
+  passenger =''
+  destination=''
+  departure =''
 
   constructor(private homeService: HomeService, private router: Router, private formService: FormKRLDataService) { }
   ngOnInit() {
     this.homeService.getAllStation().subscribe(response => {
-      console.log("Result" + response)
+      // console.log("Result" + response)
       this.stations = response
       this.destinationStation = response
     })
@@ -61,9 +64,11 @@ export class TabComponent implements OnInit {
 
   }
   selectedStation(stations: Station) {
-    console.log('Selected Station', stations)
+    // console.log('Selected Station', stations)
     this.departureControl.setValue(stations.station_name)
     // this.destinationControl.setValue(stations.station_name)
+    this.departure = this.departureControl.value
+    console.log('Tujuan', this.departure)
     this.isSearching = false
   }
 
@@ -73,11 +78,16 @@ export class TabComponent implements OnInit {
   }
 
   selectedDestination(stations: Station) {
-    console.log('Selected Station', stations)
+    // console.log('Selected Station', stations)
     // this.departureControl.setValue(stations.station_name)
     this.destinationControl.setValue(stations.station_name)
+    this.destination = this.destinationControl.value
     this.isSearchingDestination = false
   }
+
+  
+
+
 
   handleDepartureKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
@@ -124,35 +134,19 @@ export class TabComponent implements OnInit {
     this.destinationControl.setValue(departureValue);
   }
 
-
-  navigateToPay() {
-    // Lakukan navigasi ke langkah PaymentMethodComponent
-    this.router.navigate(['/pay/confirm']);
-  }
-
   submitForm(cityName: string): void {
-    const formData = this.getFormData(cityName);
-    console.log(`Form data for ${cityName}:`, formData);
-    console.log(`form data submiteted`)
-    this.formService.updateFormData(formData)
-    this.navigateToPay()
-    // Add your logic to send the form data to the server or handle it as needed
+    if(cityName == "KRL"){
+      
+      this.passenger = this.passengerCountControl.value
+      sessionStorage.setItem('departure', this.departure);
+      sessionStorage.setItem('destination', this.destination);
+      sessionStorage.setItem('passenger', this.passenger);
+      this.navigateToPay()
+    }  
   }
 
-  private getFormData(cityName: string): any {
-    switch (cityName) {
-      case 'KRL':
-        return {
-          departure: this.departureControl.value,
-          destination: this.destinationControl.value,
-          passangers: this.passengerCountControl.value
-        };
-      case 'Paris':
-        return { ...this.formDataParis };
-      case 'Tokyo':
-        return { ...this.formDataTokyo };
-      default:
-        return {};
-    }
+  
+  navigateToPay() {
+    this.router.navigate(['/pay/confirm']);
   }
 }

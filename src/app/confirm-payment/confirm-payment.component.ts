@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormKRLDataService } from '../service/form.krl.service';
 import { PriceService } from '../service/price.service';
 import { response } from 'express';
+import { Stepper } from '../service/stepper.service';
 
 @Component({
   selector: 'app-confirm-payment',
@@ -12,43 +13,31 @@ import { response } from 'express';
 export class ConfirmPaymentComponent implements OnInit {
   formData : any;
   price:any
-  destination:string =''
-  departure:string=''
-  passanger:string=''
+  destination:string|null = null
+  departure:string|null = null
+  passanger:string|null = null
   total:number= 0
 
   userID:any
 
-  constructor(private route:ActivatedRoute, private router:Router, private formDataService:FormKRLDataService, private service:PriceService){}
+
   ngOnInit(): void {
-    this.formDataService.formData$.subscribe((formData)=>{
-      this.formData = formData
-      this.destination = this.formData.destination
-      this.departure = this.formData.departure
-      // this.departure = formData.departure
-      this.passanger = this.formData.passanger
-      console.log(this.destination)
-      console.log('Received form data in result component:', formData);
-    })
+
+    this.destination = sessionStorage.getItem('destination')
+    this.departure = sessionStorage.getItem('departure')
+    this.passanger = sessionStorage.getItem('passenger')
     this.service.getPriceKRL().subscribe((data)=>{
       this.price = data
     })
-    this.userID=this.formDataService.userId
-    console.log(this.userID)
   }
 
-  navigateToProcess() {
-    // Lakukan navigasi ke langkah PaymentMethodComponent
-    this.router.navigate(['pay/process']);
-  }
-
-  onSubmit(){
-
-  console.log(this.departure)
+  constructor(private router:Router, private formDataService:FormKRLDataService, private service:PriceService, private stepper: Stepper){}
+  onSubmit():void{
     this.total = this.price * Number(this.passanger)
-    this.formDataService.createPayment(this.userID, "KRL", this.departure, this.destination, Number(this.passanger), this.total).subscribe(response=>{
+    this.formDataService.createPayment("bambang", "KRL", this.departure!, this.destination!, this.passanger!, this.total.toString()).subscribe((response)=>{
       console.log(response)
-      // this.navigateToProcess()
+      this.router.navigate(['/pay/process'])
+      this.stepper.setBooleanValue(true)
     })
   }
 }
