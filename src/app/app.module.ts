@@ -16,6 +16,7 @@ import { LoadingProcessComponent } from './loading-process/loading-process.compo
 import { MyorderComponent } from './myorder/myorder.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CompleteComponent,
     LoadingProcessComponent,
     MyorderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
