@@ -1,28 +1,16 @@
-import { Inject, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import axios from "axios";
-import { BehaviorSubject, Observable } from "rxjs";
+import {Observable } from "rxjs";
 import { Login } from "../models/login";
+import { Router } from "@angular/router";
 
 @Injectable({providedIn:'root'})
 export class LoginService{
     
     private baseUrl = "http://localhost:8081/logins/hash";
     login:any
-    private _isLoggedIn = new BehaviorSubject<boolean>(false)
-    isLoggedIn$= this._isLoggedIn.asObservable();
-    token:String=''
 
-
-    getToken(){
-        return localStorage.getItem('token')
-    }
-
-    getUserId(){
-        return localStorage.getItem('userID')
-    }
-
-
-    constructor(){}
+    constructor(private router:Router){}
     
     loginByHash(userId: string, mpin: string): Observable<Login> {
         // Creating FormData object
@@ -42,15 +30,50 @@ export class LoginService{
                   localStorage.setItem('userID',this.login.userId)
                   localStorage.setItem('token',this.login.jwt)
 
-                  this._isLoggedIn.next(true)
+                //   this._isLoggedIn.next(true)
+
+                console.log("Data", data)
 
                   observer.next(data);
                   observer.complete();
               })
               .catch(error => {
-                 this._isLoggedIn.next(false)
+                //  this._isLoggedIn.next(false)
                   observer.error(error);
                   console.error(error);
               });
+              
       });}
+
+    getToken(){
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('token') || '';
+        }
+        return '';
+    }
+
+    getUserId(){
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('userID') || '';
+        }
+        return '';
+    }
+
+
+    isLoggedIn():boolean{
+        const token = this.getToken()
+        return !!token;
+    }
+
+    getUserInfo():any{
+        const token = this.getToken()
+        return token
+    }
+
+    logout(){
+        localStorage.removeItem('userID'),
+        localStorage.removeItem('token')
+        this.router.navigate(['login'])
+        
+    }
 }

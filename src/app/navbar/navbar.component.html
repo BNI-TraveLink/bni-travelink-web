@@ -1,14 +1,14 @@
 <header class="sticky top-0 z-50">
-  <nav class=" font-inter bg-white w-full shadow">
+  <nav class="px-8 font-inter bg-white w-full shadow">
   <div class="flex justify-between items-center">
     <a routerLink="/home">
       <img src="/assets/images/logo-bnitravelink.svg" class="w-[100px] bg-contain pl-4" alt="">
     </a>
     <ul class="hidden md:flex items-center pr-10 text-base font-semibold cursor-pointer">
-      <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a routerLink="/home">Home</a></li>
+      <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a routerLink="/">Home</a></li>
       <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a href="https://www.bni.co.id/id-id/">About Us</a></li>
       <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a routerLink="/myorder">MyOrder</a></li>
-      <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a routerLink="/login">Logout</a></li>
+      <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a (click)="logout()">Logout</a></li>
       <li class="py-3 px-4">
         <a href="#">
           <img src="/assets/images/blank.png" class="w-14 h-14 rounded-full border" alt="">

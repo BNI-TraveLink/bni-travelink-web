@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   loginForm?:any;
   http = inject(HttpClient)
+  fontStyle:any ={}
   
   constructor(private fb:FormBuilder, private router:Router,private loginService:LoginService){}
 
@@ -20,6 +21,11 @@ export class LoginComponent implements OnInit {
       userid:['', Validators.required],
       mpin:['', Validators.required]
     })
+
+    this.loginForm.get('userid')?.valueChanges.subscribe((value:any) => {
+      // Change the font style based on the condition (e.g., if the length is greater than 5)
+      this.fontStyle = { 'font-style': value.length > 5 ? 'semibold' : 'normal' };
+    });
   }
 
   onSubmit():void{
@@ -28,7 +34,7 @@ export class LoginComponent implements OnInit {
       const mpin = this.loginForm.get('mpin').value
       this.loginService.loginByHash(userid,mpin).subscribe(response =>{
         const data = response
-        this.router.navigate(['home'])
+        this.router.navigate([''])
       })
     }
   }
