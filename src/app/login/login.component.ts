@@ -3,6 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../service/login.service';
 import { Router } from '@angular/router';
+import { error } from 'console';
 
 @Component({
   selector: 'app-login',
@@ -22,10 +23,10 @@ export class LoginComponent implements OnInit {
       mpin:['', Validators.required]
     })
 
-    this.loginForm.get('userid')?.valueChanges.subscribe((value:any) => {
-      // Change the font style based on the condition (e.g., if the length is greater than 5)
-      this.fontStyle = { 'font-style': value.length > 5 ? 'semibold' : 'normal' };
-    });
+    // this.loginForm.get('userid')?.valueChanges.subscribe((value:any) => {
+    //   // Change the font style based on the condition (e.g., if the length is greater than 5)
+    //   this.fontStyle = { 'font-style': value.length > 5 ? 'semibold' : 'normal' };
+    // });
   }
 
   onSubmit():void{
@@ -35,6 +36,9 @@ export class LoginComponent implements OnInit {
       this.loginService.loginByHash(userid,mpin).subscribe(response =>{
         const data = response
         this.router.navigate([''])
+      }, (error)=>{
+        console.error(error)
+        this.loginForm.setErrors({'incorrectLogin':true})
       })
     }
   }
