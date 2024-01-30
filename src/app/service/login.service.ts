@@ -46,28 +46,17 @@ export class LoginService{
       });}
 
     getToken(){
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem('token') || '';
-        }
-        return '';
+        return localStorage.getItem('token') || '';
     }
 
     getUserId(){
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem('userID') || '';
-        }
-        return '';
+        return localStorage.getItem('userID') || '';
     }
 
 
     isLoggedIn():boolean{
         const token = this.getToken()
         return !!token;
-    }
-
-    getUserInfo():any{
-        const token = this.getToken()
-        return token
     }
 
     logout(){

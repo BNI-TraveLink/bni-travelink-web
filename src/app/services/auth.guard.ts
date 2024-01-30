@@ -7,17 +7,13 @@ export const authGuard: CanActivateFn | UrlTree = (route:ActivatedRouteSnapshot,
   const loginService = inject(LoginService)
   const router = inject(Router)
 
-  if(loginService.isLoggedIn()){
-    const userInfo = loginService.getUserInfo()
-    if(userInfo){
-     return true
-    }
-    else{
-     return router.createUrlTree(['login'])
-    }
+  const userLoginStatus = loginService.getToken()
+  
+  if (userLoginStatus ) {
+    return true
   }
-  else{
-   return router.createUrlTree(['login'])
+  else {
+    return router.createUrlTree(['login']);
   }
 
 } 

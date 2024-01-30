@@ -1,8 +1,17 @@
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { Ticket } from "../models/ticket";
+import { error } from "console";
+import axios from "axios";
+import { environment } from "../../environments/environment.development";
 
 @Injectable({providedIn:'root'})
 export class TicketService{
-    showAllTicket(){
-        
+    showAllTicket(userID: string): Observable<Ticket[]>{
+        return new Observable<Ticket[]>(observer =>{
+            axios.get(`${environment.apiUrl}/tickets/getTicketsByUserId/${userID}`).then(()=>{
+                
+            })
+        })
     }
 }

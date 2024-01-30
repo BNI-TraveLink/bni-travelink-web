@@ -10,9 +10,10 @@ import { PaymentMethodComponent } from './payment-method/payment-method.componen
 import { CompleteComponent } from './complete/complete.component';
 
 const routes: Routes = [
-  // {path:'', pathMatch:'full', redirectTo:'/login'},
-  {path:'login', component:LoginComponent},
+  // {path:'', component:HomeComponent, canActivate:[authGuard]},
   {path:'',component:HomeComponent, canActivate:[authGuard]},
+  {path:'home',component:HomeComponent, canActivate:[authGuard]},
+  {path:'login', component:LoginComponent},
   {path:'pay', component:PaymentComponent,children:[
     {path:'confirm', component:ConfirmPaymentComponent},
     {path:'process', component:PaymentMethodComponent},
