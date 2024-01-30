@@ -7,38 +7,38 @@
             <div class="absolute inset-0 top-0 z-[2] px-10">
                 <div class="flex flex-col mt-8 p-4 sm:mx-0 md:mx-5 shadow-md bg-white rounded-3xl">
                     <h2 class="text-sky-900 text-2xl text-center my-8 font-bold font-['Inter'] leading-snug">My Order</h2>
-                    <div class="card bg-neutral-100 rounded-2xl shadow mx-6">
+                    <div *ngFor="let item of ticketByUser">
+                      <div class="card bg-neutral-100 rounded-2xl shadow mx-6 mb-4">
                         <div class="card-body flex flex-row items-center font-inter p-5 flex-grow overflow-x-auto">
                             <div class="py-4 px-4 mx-auto">
                                 <img src="/assets/images/icon-krl.svg" class="w-10 h-10" alt="" />
                             </div>
-                          <div class="py-2 px-4 mx-auto text-center">
-                            <h2 class="font-normal text-base md:text-xs text-neutral-600 mb-2">#Order ID</h2>
-                            <h4 class="font-medium">0001</h4>
+                          <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base ">
+                            <h2 class="font-normal text-neutral-600 mb-2">#Order ID</h2>
+                            <h4 class="font-medium">{{item.ticketNumber}}</h4>
                           </div>
-                          <div class="py-2 px-4 mx-auto text-center">
-                            <h2 class="font-normal text-base md:text-xs  lg:text-base  text-neutral-600 mb-2">Transaction Date</h2>
-                            <h4 class="font-medium">15 Feb 2024 09:35:41 WIB</h4>
+                          <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base ">
+                            <h2 class="font-normal  text-neutral-600 mb-2">Transaction Date</h2>
+                            <h4 class="font-medium">{{formatDate(item.createdAt.toString())}}</h4>
                           </div>
-                          <div class="py-2 px-4 mx-auto text-center">
-                            <h2 class="font-normal text-base md:text-xs lg:text-base text-neutral-600 mb-2">Departure</h2>
-                            <h4 class="font-medium">Jakarta Kota</h4>
+                          <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base">
+                            <h2 class="font-normal text-neutral-600 mb-2">Departure</h2>
+                            <h4 class="font-medium">{{item.transaction.departure}}</h4>
                            </div>
-                          <div class="py-2 px-4 mx-auto text-center">
-                            <h2 class="font-normal text-base md:text-xs lg:text-base text-neutral-600 mb-2">Destination</h2>
-                            <h4 class="font-medium">Tanjung Barat</h4>
+                          <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base">
+                            <h2 class="font-normal text-neutral-600 mb-2">Destination</h2>
+                            <h4 class="font-medium">{{item.transaction.destination}}</h4>
                           </div>
-                          <div class="py-2 px-4 mx-auto text-center">
-                            <h2 class="font-normal text-base md:text-xs lg:text-base text-neutral-600 mb-2">Status</h2>
+                          <div class="py-2 px-4 mx-auto text-center text-base md:text-xs lg:text-base">
+                            <h2 class="font-normal  text-neutral-600 mb-2">Status</h2>
                             <div class="py-2 px-4 whitespace-nowrap bg-lime-600 bg-opacity-40 rounded-2xl">
                                 <div class="text-sky-900 text-base font-medium font-['Inter'] leading-snug">Active</div>
                             </div>
                           </div>
-                         
-                          <!-- Gunakan class yang sesuai dengan status Anda -->
-                        
+                                   
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
