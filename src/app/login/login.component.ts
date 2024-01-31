@@ -29,12 +29,16 @@ export class LoginComponent implements OnInit {
     if(this.loginForm.valid){
       const userid = this.loginForm.get('userid').value
       const mpin = this.loginForm.get('mpin').value
-      this.loginService.loginByHash(userid,mpin).subscribe(response =>{
-        // const data = response
-        this.router.navigate([''])
-      }, (error)=>{
-        console.error(error)
-        this.loginForm.setErrors({'incorrectLogin':true})
+      this.loginService.loginByHash(userid,mpin).subscribe({
+        next: (result) =>{
+          console.log(result.userId)
+          this.router.navigate([''])
+        },
+        error:(error)=>{
+          console.error(error)
+          this.loginForm.setErrors({'incorrectLogin':true})
+        }
+
       })
     }
   }

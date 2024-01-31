@@ -12,14 +12,28 @@ import { DatePipe } from '@angular/common';
 export class MyorderComponent implements OnInit {
   ticketByUser: Ticket[] = []
   loading = true
+  pageSize = 5;
+  currentPage = 1;
+  totalPages: any;
+  pagedTicketData: Ticket[] = [];
+  pages: number[] = [];
 
   ngOnInit(): void {
     const userID = localStorage.getItem('userID')
     console.log(userID)
     this.service.showAllTicket(userID!).pipe(delay(5000)).subscribe(response=>{
-      this.ticketByUser = response
-      this.loading = false
-      console.log("Data",response)
+      this.ticketByUser = response.sort((last, first)=>{
+        const firstDate = new Date(first.createdAt).getTime()
+        const lastDate = new Date(last.createdAt).getTime()
+        return firstDate - lastDate;
+      })
+      // this.totalPages = Math.ceil(this.ticketByUser.length / this.pageSize);
+      // this.loading = false;
+      // if (this.ticketByUser.length > 0) {
+      //   this.updatePagedData();
+      // }
+      // this.updatePagedData();
+      // this.updatePages();
     })
   }
 
@@ -31,4 +45,33 @@ export class MyorderComponent implements OnInit {
     const formatDate = this.datePip.transform(parsedDate,'dd MMM yy HH:mm:ss')
     return formatDate || ''
   }
+
+  // Pagination
+  changePage(page: number | string): void {
+    if (typeof page === 'number') {
+        this.currentPage = page;
+    } else if (page === 'prev' && this.currentPage > 1) {
+        this.currentPage--;
+    } else if (page === 'next' && this.currentPage < this.totalPages) {
+        this.currentPage++;
+    }
+
+    this.updatePagedData();
+    this.updatePages();
+}
+
+  // Update the method to update pagedTicketData based on current page
+  updatePagedData(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedTicketData = this.ticketByUser.slice(startIndex, endIndex);
+}
+
+
+  updatePages(): void {
+    this.pages = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+        this.pages.push(i);
+    }
+}
 }

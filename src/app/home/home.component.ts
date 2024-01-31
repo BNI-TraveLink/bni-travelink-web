@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from '../service/login.service';
-import { response } from 'express';
 
 @Component({
   selector: 'app-home',
@@ -8,4 +7,5 @@ import { response } from 'express';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent{
+  // constructor(private service:LoginService ){}
 }

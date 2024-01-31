@@ -29,15 +29,22 @@ export class ConfirmPaymentComponent implements OnInit {
     this.service.getPriceKRL().subscribe((data)=>{
       this.price = data
     })
+   
   }
 
   constructor(private router:Router, private formDataService:FormKRLDataService, private service:PriceService, private stepper: Stepper){}
+
+  getTotal():number{
+    return this.price * Number(this.passanger);
+  }
   onSubmit():void{
+    const userID = localStorage.getItem("userID")
     this.total = this.price * Number(this.passanger)
-    this.formDataService.createPayment("bambang", "KRL", this.departure!, this.destination!, this.passanger!, this.total.toString()).subscribe((response)=>{
+    this.formDataService.createPayment(userID!, "KRL", this.departure!, this.destination!, this.passanger!, this.getTotal().toString()).subscribe((response)=>{
       console.log(response)
       this.router.navigate(['/pay/process'])
       this.stepper.setBooleanValue(true)
     })
+
   }
 }

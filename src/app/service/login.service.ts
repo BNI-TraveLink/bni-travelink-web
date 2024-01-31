@@ -27,7 +27,7 @@ export class LoginService{
                   const data = response.data; // Extract the required fields
                   this.login = data
 
-                  localStorage.setItem('userID',this.login.userId)
+                  localStorage.setItem('userID', this.login.userId)
                   localStorage.setItem('token',this.login.jwt)
 
                 //   this._isLoggedIn.next(true)
@@ -45,12 +45,15 @@ export class LoginService{
               
       });}
 
+
+
+
     getToken(){
-        return localStorage.getItem('token') || '';
+        return localStorage.getItem('token');
     }
 
     getUserId(){
-        return localStorage.getItem('userID') || '';
+        return localStorage.getItem('userID');
     }
 
 

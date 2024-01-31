@@ -11,14 +11,9 @@ export class TicketService{
     showAllTicket(userID: string): Observable<Ticket[]>{
         return new Observable<Ticket[]>(observer =>{
             axios.get(`${environment.apiUrl}/tickets/getTicketsByUserId/${userID}`).then(response=>{
-                if(response.status === 200){
-                    const data = response.data
-                    observer.next(data)
-                    observer.complete()
-                }
-                else{
-                    observer.closed
-                }
+                const data = response.data
+                observer.next(data)
+                observer.complete()
             }).catch(error =>{
                 observer.error(error)
             })

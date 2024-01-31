@@ -3,6 +3,8 @@
     <img src="/assets/images/background_home.png" class="w-full h-96 bg-contain opacity-85" alt="">
     <div class="w-full absolute top-0 inset-0 z-[2] pt-10">
         <h1 class="text-center text-white font-bold text-xl">Simplifying your journey with TraveLink</h1>
+        
+        
         <div id="form-content" class="relative mx-auto">
             <div class="absolute inset-0 top-0 z-[2] px-10">
                 <div class="flex flex-col mt-8 p-4 sm:mx-0 md:mx-5 shadow-md bg-white rounded-3xl">
@@ -31,15 +33,17 @@
                           </div>
                           <div class="py-2 px-4 mx-auto text-center text-base md:text-xs lg:text-base">
                             <h2 class="font-normal  text-neutral-600 mb-2">Status</h2>
-                            <div class="py-2 px-4 whitespace-nowrap bg-lime-600 bg-opacity-40 rounded-2xl">
-                                <div class="text-sky-900 text-base font-medium font-['Inter'] leading-snug">Active</div>
+                            <div class="py-2 px-4 whitespace-nowrap  bg-opacity-40 rounded-2xl" [ngClass]="item.isActive ? 'bg-lime-600 text-sky-900 ' : 'bg-orange-300 text-orange-700'">
+                                <div class="text-base font-medium font-['Inter'] leading-snug">{{item.isActive ? 'Active' : 'Used'}}</div>
                             </div>
                           </div>
                                    
-                        </div>
+                        </div>   
+                      </div>    
+                
+                
                     </div>
-                    
-                </div>
+                  
             </div>
         </div>
     </div>
