@@ -10,7 +10,7 @@ export class TicketService{
     
     showAllTicket(userID: string): Observable<Ticket[]>{
         return new Observable<Ticket[]>(observer =>{
-            axios.get(`${environment.apiUrl}/tickets/getTicketsByUserId/${userID}`).then(response=>{
+            axios.get(`${environment.apiUrl}/transaction/userId/${userID}`).then(response=>{
                 const data = response.data
                 observer.next(data)
                 observer.complete()

@@ -5,28 +5,28 @@
       <button
         class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'KRL' ? 'text-orange-500 underline' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
         (click)="openCity('KRL')">
-        <img src="/assets/images/icon-krl.svg" class=" w-9 h-9 mr-1" />
+        <img src="{{ (activeTab === 'KRL') ? '/assets/images/icon-krl.svg' : '/assets/images/icon-krl-disable.svg' }}" class="w-9 h-9 mr-1" />
         <span class="hidden sm:block text-base lg:text-base md:text-base sm:text-sm">Commuter Line</span>
       </button>
   
       <button
         class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'MRT' ? 'text-orange-500 underline' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
         (click)="openCity('MRT')">
-        <img src="/assets/images/mrt.svg" class="sm:block w-9 h-9 mr-1" />
+        <img src="{{ (activeTab === 'MRT') ? '/assets/images/mrt-enable.svg' : '/assets/images/mrt.svg' }}" class="w-9 h-9 mr-1" />
         <span class=" hidden sm:block text-base lg:text-base md:text-base sm:text-sm">MRT</span>
       </button>
   
       <button
         class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'LRT' ? 'text-orange-500 underline' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
         (click)="openCity('LRT')">
-        <img src="/assets/images/lrt.svg" class=" w-9 h-9 mr-1" />
+        <img src="{{ (activeTab === 'LRT') ? '/assets/images/lrt-enable.svg' : '/assets/images/lrt.svg' }}" class="w-9 h-9 mr-1" />
         <span class="text-base lg:text-base hidden sm:block md:text-base sm:text-sm">LRT</span>
       </button>
   
       <button
         class="sm:flex-1 md:w-[232px] px-4 py-2 focus:outline-none rounded transition duration-300 ease-in-out {{ activeTab === 'TJ' ? 'text-orange-500 underline' : 'text-gray-500' }} font-semibold inline-flex items-center text-center"
         (click)="openCity('TJ')">
-        <img src="/assets/images/tije.svg" class=" w-9 h-9 mr-1" />
+        <img src="{{ (activeTab === 'TJ') ? '/assets/images/tj-enable.svg' : '/assets/images/tije.svg' }}" class=" w-9 h-9 mr-1" />
         <span class="text-base lg:text-base hidden sm:block md:text-base sm:text-sm">TiJe</span>
       </button>
     </div>
