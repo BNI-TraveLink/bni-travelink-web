@@ -4,12 +4,10 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { LoginService } from "./login.service";
 import { Ticket } from "../models/ticket";
 import { error } from "console";
+import { environment } from "../../environments/environment";
 
 @Injectable({providedIn:'root'})
 export class FormKRLDataService{
-
-    private baseUrl = "http://localhost:8081/payment/GeneratePayment"
-    private baseUrlTicket = "http://localhost:8081/tickets/GenerateTicket"
 
     constructor(private loginService: LoginService){}
 
@@ -33,7 +31,7 @@ export class FormKRLDataService{
         return new Observable<number>(observe=>{
          
             // console.log(amount)
-            axios.post<number>(this.baseUrl, formDataSubmit, {headers:{'Content-Type':'multipart/form-data'}}).then(response =>{
+            axios.post<number>(`${environment.apiUrl}/payment/GeneratePayment`, formDataSubmit, {headers:{'Content-Type':'multipart/form-data'}}).then(response =>{
                 const data = response.data
                 // console.log("response", data)
                 sessionStorage.setItem("orderID", data.toString())
@@ -52,7 +50,7 @@ export class FormKRLDataService{
     //generate Tickete
     getTicket(orderID:String):Observable<Ticket>{
         return new Observable<Ticket>(observe=>{
-            axios.post<Ticket>(`${this.baseUrlTicket}/${orderID}`).then(response=>{
+            axios.post<Ticket>(`${environment.apiUrl}/tickets/GenerateTicket/${orderID}`).then(response=>{
                 if(response.status === 200){
                     const data = response.data;
                     observe.next(data)

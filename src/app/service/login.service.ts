@@ -3,11 +3,10 @@ import axios from "axios";
 import {Observable } from "rxjs";
 import { Login } from "../models/login";
 import { Router } from "@angular/router";
+import { environment } from "../../environments/environment";
 
 @Injectable({providedIn:'root'})
 export class LoginService{
-    
-    private baseUrl = "http://localhost:8081/logins/hash";
     login:any
 
     constructor(private router:Router){}
@@ -22,7 +21,7 @@ export class LoginService{
     
         // Using Axios for the HTTP request with form data
         return new Observable<Login>(observer => {
-          axios.post<Login>(this.baseUrl, formData)
+          axios.post<Login>(`${environment.apiUrl}/logins/hash`, formData)
               .then(response => {
                   const data = response.data; // Extract the required fields
                   this.login = data
