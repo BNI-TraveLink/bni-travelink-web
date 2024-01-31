@@ -85,9 +85,6 @@ export class TabComponent implements OnInit {
     this.isSearchingDestination = false
   }
 
-  
-
-
 
   handleDepartureKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
@@ -120,10 +117,6 @@ export class TabComponent implements OnInit {
   }
 
 
-  formDataLondon: any = { username: '', password: '' };
-  formDataParis: any = { username: '', password: '' };
-  formDataTokyo: any = { username: '', password: '' };
-
   openCity(cityName: string): void {
     this.activeTab = cityName;
   }
@@ -136,13 +129,24 @@ export class TabComponent implements OnInit {
 
   submitForm(cityName: string): void {
     if(cityName == "KRL"){
-      
-      this.passenger = this.passengerCountControl.value
+      if(this.isFormValid()){
+        this.passenger = this.passengerCountControl.value
       sessionStorage.setItem('departure', this.departure);
       sessionStorage.setItem('destination', this.destination);
       sessionStorage.setItem('passenger', this.passenger);
       this.navigateToPay()
+      }
+      else{
+        console.log("Form is not valid. Please fill in all required fields.");
+      }
     }  
+  }
+
+  // validasi form
+  isFormValid():boolean{
+    return(
+      this.departureControl.valid && this.destinationControl.valid && this.passengerCountControl.valid
+    )
   }
 
   

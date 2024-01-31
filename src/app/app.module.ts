@@ -17,7 +17,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './footer/footer.component';
 import { DatePipe } from '@angular/common';
-import { ShimmerComponent } from './loading/shimmer/shimmer.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ import { ShimmerComponent } from './loading/shimmer/shimmer.component';
     CompleteComponent,
     MyorderComponent,
     FooterComponent,
-    ShimmerComponent,
   ],
   imports: [
     BrowserModule,

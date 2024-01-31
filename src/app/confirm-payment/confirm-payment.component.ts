@@ -20,6 +20,8 @@ export class ConfirmPaymentComponent implements OnInit {
 
   userID:any
 
+  isVissible:boolean = false
+
 
   ngOnInit(): void {
 
@@ -46,5 +48,9 @@ export class ConfirmPaymentComponent implements OnInit {
       this.stepper.setBooleanValue(true)
     })
 
+  }
+
+  showPopUp(){
+    this.isVissible = !this.isVissible
   }
 }
