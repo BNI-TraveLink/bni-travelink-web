@@ -12,12 +12,12 @@ import { TabComponent } from './tab/tab.component';
 import { ConfirmPaymentComponent } from './confirm-payment/confirm-payment.component';
 import { PaymentMethodComponent } from './payment-method/payment-method.component';
 import { CompleteComponent } from './complete/complete.component';
-import { LoadingProcessComponent } from './loading-process/loading-process.component';
 import { MyorderComponent } from './myorder/myorder.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './footer/footer.component';
 import { DatePipe } from '@angular/common';
+import { ShimmerComponent } from './loading/shimmer/shimmer.component';
 
 @NgModule({
   declarations: [
@@ -30,9 +30,9 @@ import { DatePipe } from '@angular/common';
     ConfirmPaymentComponent,
     PaymentMethodComponent,
     CompleteComponent,
-    LoadingProcessComponent,
     MyorderComponent,
     FooterComponent,
+    ShimmerComponent,
   ],
   imports: [
     BrowserModule,
