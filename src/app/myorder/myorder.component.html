@@ -3,68 +3,47 @@
     <img src="/assets/images/background_home.png" class="w-full h-96 bg-contain opacity-85" alt="">
     <div class="w-full absolute top-0 inset-0 z-[2] pt-10">
         <h1 class="text-center text-white font-bold text-xl">Simplifying your journey with TraveLink</h1>
+        
+        
         <div id="form-content" class="relative mx-auto">
             <div class="absolute inset-0 top-0 z-[2] px-10">
-                <div class="h-[436px] flex flex-col mt-8 p-4 sm:mx-0 md:mx-5 shadow-md bg-white rounded-3xl">
+                <div class="flex flex-col mt-8 p-4 sm:mx-0 md:mx-5 shadow-md bg-white rounded-3xl">
                     <h2 class="text-sky-900 text-2xl text-center my-8 font-bold font-['Inter'] leading-snug">My Order</h2>
-                    <div class="w-full py-8 px-5 overflow-x-auto ">
-                        <table class="min-w-full text-center border-collapse bg-neutral-100 shadow-md rounded-xl table-auto">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="py-2 px-4 font-normal"></th>
-                                    <th scope="col" class="py-2 px-4 font-normal">#Order ID</th>
-                                    <th scope="col" class="py-2 px-4 font-normal">Transaction Date</th>
-                                    <th scope="col" class="py-2 px-4 font-normal">Departure Station</th>
-                                    <th scope="col" class="py-2 px-4 font-normal">Destination Station</th>
-                                    <th scope="col" class="py-2 px-4 font-normal">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody class="font-semibold">
-                                <tr>
-                                    <td class="py-2 px-4 whitespace-nowrap">
-                                        <div class="min-w-full flex justify-center items-center">
-                                            <img src="assets/images/icon-krl.svg" class="w-10 h-10 bg-contain" alt="" />
-                                        </div>
-                                    </td>  
-                                    <td class="py-2 px-4 whitespace-nowrap">0001</td>
-                                    <td class="py-2 px-4 whitespace-nowrap">15 Feb 2024 09:35:41 WIB</td>
-                                    <td class="py-2 px-4 whitespace-nowrap">Jakarta Kota</td>
-                                    <td class="py-2 px-4 whitespace-nowrap">Tanjung Barat</td>
-                                    <td class="py-2 px-4 whitespace-nowrap">
-                                        <div class="min-w-full flex justify-center items-center">
-                                            <div class="w-24 h-8 pl-2.5 pr-1.5 flex justify-center items-center bg-lime-600 bg-opacity-40 rounded-2xl">
-                                                <div class="text-sky-900 text-base font-medium font-['Inter'] leading-snug">Active</div>
-                                            </div>
-                                        </div>
-                                        
-                                       
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-2 px-4 whitespace-nowrap">
-                                        <div class="min-w-full flex justify-center items-center">
-                                            <img src="assets/images/icon-krl.svg" class="w-10 h-10 bg-contain" alt="" />
-                                        </div>
-                                    </td>  
-                                    <td class="py-2 px-4 whitespace-nowrap">0001</td>
-                                    <td class="py-2 px-4 whitespace-nowrap">15 Feb 2024 09:35:41 WIB</td>
-                                    <td class="py-2 px-4 whitespace-nowrap">Jakarta Kota</td>
-                                    <td class="py-2 px-4 whitespace-nowrap">Tanjung Barat</td>
-                                    <td class="py-2 px-4 whitespace-nowrap">
-                                        <div class="min-w-full flex justify-center items-center">
-                                            <div class="w-24 h-8 pl-2.5 pr-1.5 flex justify-center items-center bg-orange-500 bg-opacity-40 rounded-2xl">
-                                                <div class="text-orange-700 text-base font-medium font-['Inter'] leading-snug">Unused</div>
-                                            </div>
-                                        </div>
-                                        
-                                       
-                                    </td>
-                                </tr>
-                                <!-- Tambahkan baris berikut sesuai dengan jumlah data -->
-                            </tbody>
-                        </table>
+                    <div *ngFor="let item of ticketByUser">
+                      <div class="card bg-neutral-100 rounded-2xl shadow mx-6 mb-4">
+                        <div class="card-body flex flex-row items-center font-inter p-5 flex-grow overflow-x-auto">
+                            <div class="py-4 px-4 mx-auto">
+                                <img src="/assets/images/icon-krl.svg" class="w-10 h-10" alt="" />
+                            </div>
+                          <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base ">
+                            <h2 class="font-normal text-neutral-600 mb-2">#Order ID</h2>
+                            <h4 class="font-medium">{{item.ticketNumber}}</h4>
+                          </div>
+                          <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base ">
+                            <h2 class="font-normal  text-neutral-600 mb-2">Transaction Date</h2>
+                            <h4 class="font-medium">{{formatDate(item.createdAt.toString())}}</h4>
+                          </div>
+                          <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base">
+                            <h2 class="font-normal text-neutral-600 mb-2">Departure</h2>
+                            <h4 class="font-medium">{{item.transaction.departure}}</h4>
+                           </div>
+                          <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base">
+                            <h2 class="font-normal text-neutral-600 mb-2">Destination</h2>
+                            <h4 class="font-medium">{{item.transaction.destination}}</h4>
+                          </div>
+                          <div class="py-2 px-4 mx-auto text-center text-base md:text-xs lg:text-base">
+                            <h2 class="font-normal  text-neutral-600 mb-2">Status</h2>
+                            <div class="py-2 px-4 whitespace-nowrap  bg-opacity-40 rounded-2xl" [ngClass]="item.isActive ? 'bg-lime-600 text-sky-900 ' : 'bg-orange-300 text-orange-700'">
+                                <div class="text-base font-medium font-['Inter'] leading-snug">{{item.isActive ? 'Active' : 'Used'}}</div>
+                            </div>
+                          </div>
+                                   
+                        </div>   
+                      </div>    
+                
+                
                     </div>
-                </div>
+                  
             </div>
         </div>
     </div>

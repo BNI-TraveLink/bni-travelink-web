@@ -18,8 +18,8 @@
                 <div class="w-full flex flex-col items-center my-4">
                   <h2 class="text-secondary font-medium my-2">Please Scan the QR to continoue Payment</h2>
                   <img src="/assets/images/qris_logo.svg" class="w-full h-11 mb-2" alt="">
-                  <img src="/assets/images/qris_code.svg" class="w-[180px] h-[180px] mb-4" alt="">
-                  <button (click)="completePayment()" class="w-[150px] h-12 px-3 rounded-md bg-orange-500 text-white font-semibold" routerLink="complete">Download Qr</button>
+                  <img src="/assets/images/qris_code.svg" (click)="completePayment()" class="w-[180px] h-[180px] mb-4" alt="">
+                  <button class="w-[150px] h-12 px-3 rounded-md bg-orange-500 text-white font-semibold" (click)="completePayment()" routerLink="complete">Download Qr</button>
                 </div>
                 <div class="w-full lg:w-5/12  flex justify-center items-center ">
                   <div class="bg-[#00A2B7] bg-opacity-[0.07] shadow-md p-7 rounded-2xl">
@@ -44,7 +44,7 @@
                   <h2 class="text-secondary font-medium my-2">Please transfer payment to the Virtual Account</h2>
                   <img src="/assets/images/bni_logo.svg" class="w-full h-11 mb-2" alt="">
                   <p class="text-secondary font-normal text-xs mt-8 mb-5">Your BNI Virtual Account</p>
-                  <h2 class="text-orange-600 text-4xl font-semibold mb-7">8297000194629723</h2>
+                  <h2 class="text-orange-600 text-4xl font-semibold mb-7" (click)="completePayment()">8297000194629723</h2>
                   <button (click)="completePayment()" class="w-[150px] h-12 px-3 rounded-md bg-orange-500 text-white font-semibold">Copy VA</button>
                 </div>
                 <div class="w-full lg:w-5/12 flex justify-center items-center ">

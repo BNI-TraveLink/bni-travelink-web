@@ -1,29 +1,22 @@
-import { DOCUMENT } from '@angular/common';
-import { inject } from '@angular/core';
-import { CanActivateFn, Router} from '@angular/router';
-import { LocalStorageService } from '../local-storage.service';
+import { Inject, inject} from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivateFn,Router,RouterStateSnapshot,UrlTree} from '@angular/router';
+import { LoginService } from '../service/login.service';
+import { Observable } from 'rxjs';
 
+export const authGuard: CanActivateFn | UrlTree = (route:ActivatedRouteSnapshot, state:RouterStateSnapshot):Observable<boolean | UrlTree> | Promise<boolean|UrlTree> | boolean | UrlTree =>{
+  const loginService = inject(LoginService)
+  const router = inject(Router)
 
-export const authGuard: CanActivateFn = (route, state) => {
-
-  // const document = inject(DOCUMENT)
-  const localStorages = inject(LocalStorageService)
-  const token = localStorages.getItem('token')
-  console.log(route);
-  console.log(state);
-
-  const router = inject(Router);
-  console.log('I am in auth guard');
-  // console.log(state);
-
-  console.log("token", token)
-
-  if(token){
-    // router.navigate(['home'])
+  const userLoginStatus = loginService.getToken()
+  
+  if (userLoginStatus ) {
     return true
   }
-  else{
-    router.navigate(['login'])
-    return false;
+  else {
+    return router.createUrlTree(['login']);
   }
-};
+
+} 
+
+
+

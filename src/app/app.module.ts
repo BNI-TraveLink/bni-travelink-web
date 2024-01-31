@@ -16,6 +16,8 @@ import { LoadingProcessComponent } from './loading-process/loading-process.compo
 import { MyorderComponent } from './myorder/myorder.component';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FooterComponent } from './footer/footer.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CompleteComponent,
     LoadingProcessComponent,
     MyorderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

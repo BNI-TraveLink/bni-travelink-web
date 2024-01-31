@@ -3,7 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../service/login.service';
 import { Router } from '@angular/router';
-import { LocalStorageService } from '../local-storage.service';
+import { error } from 'console';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +13,7 @@ import { LocalStorageService } from '../local-storage.service';
 export class LoginComponent implements OnInit {
   loginForm?:any;
   http = inject(HttpClient)
-  localStorages = inject(LocalStorageService)
-  
+  fontStyle:any ={}
   
   constructor(private fb:FormBuilder, private router:Router,private loginService:LoginService){}
 
@@ -23,16 +22,23 @@ export class LoginComponent implements OnInit {
       userid:['', Validators.required],
       mpin:['', Validators.required]
     })
+
   }
 
   onSubmit():void{
     if(this.loginForm.valid){
       const userid = this.loginForm.get('userid').value
       const mpin = this.loginForm.get('mpin').value
-      this.loginService.loginByHash(userid,mpin).subscribe(response =>{
-        const data = response
-        localStorage.setItem('token', data.jwt)
-        this.router.navigate(['home'])
+      this.loginService.loginByHash(userid,mpin).subscribe({
+        next: (result) =>{
+          console.log(result.userId)
+          this.router.navigate([''])
+        },
+        error:(error)=>{
+          console.error(error)
+          this.loginForm.setErrors({'incorrectLogin':true})
+        }
+
       })
     }
   }
