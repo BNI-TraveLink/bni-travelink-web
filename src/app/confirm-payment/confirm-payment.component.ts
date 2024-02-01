@@ -42,7 +42,7 @@ export class ConfirmPaymentComponent implements OnInit {
   onSubmit():void{
     const userID = localStorage.getItem("userID")
     this.total = this.price * Number(this.passanger)
-    this.formDataService.createPayment(userID!, "KRL", this.departure!, this.destination!, this.passanger!, this.getTotal().toString()).subscribe((response)=>{
+    this.formDataService.createPayment(userID!, "KRL", this.departure!, this.destination!, this.passanger!,this.getTotal().toString()).subscribe((response)=>{
       console.log(response)
       this.router.navigate(['/pay/process'])
       this.stepper.setBooleanValue(true)

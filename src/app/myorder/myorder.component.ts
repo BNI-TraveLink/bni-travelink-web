@@ -39,33 +39,4 @@ export class MyorderComponent implements OnInit {
     const formatDate = this.datePip.transform(parsedDate,'dd MMM yy HH:mm:ss')
     return formatDate || ''
   }
-
-  // Pagination
-  changePage(page: number | string): void {
-    if (typeof page === 'number') {
-        this.currentPage = page;
-    } else if (page === 'prev' && this.currentPage > 1) {
-        this.currentPage--;
-    } else if (page === 'next' && this.currentPage < this.totalPages) {
-        this.currentPage++;
-    }
-
-    this.updatePagedData();
-    this.updatePages();
-}
-
-  // Update the method to update pagedTicketData based on current page
-  updatePagedData(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.pagedTicketData = this.ticketByUser.slice(startIndex, endIndex);
-}
-
-
-  updatePages(): void {
-    this.pages = [];
-    for (let i = 1; i <= this.totalPages; i++) {
-        this.pages.push(i);
-    }
-}
 }

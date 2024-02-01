@@ -18,10 +18,11 @@ export class PaymentMethodComponent implements OnInit{
   completePayment(){
     const orderID : string|null = sessionStorage.getItem('orderID')
     const userID = localStorage.getItem('userID')
+    const val = "+200"
 
     console.log(orderID, userID)
 
-    this.service.updatePayment(orderID!, userID!).pipe(delay(3000)).subscribe((response)=>{
+    this.service.updatePayment(orderID!, userID!, val).pipe(delay(3000)).subscribe((response)=>{
       console.log('Pesan',response)
     })
     this.service.getTicket(orderID!).subscribe(()=>{
