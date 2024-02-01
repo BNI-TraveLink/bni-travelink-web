@@ -9,6 +9,7 @@ export interface Ticket {
     amount:        number;
     updatedAt:     Date | null;
     active:        boolean;
+    orderId:       number;
 }
 
 export interface Customer {
