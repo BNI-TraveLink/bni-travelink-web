@@ -155,6 +155,6 @@ export class TabComponent implements OnInit {
 
   
   navigateToPay() {
-    this.router.navigate(['/pay/confirm']);
+    this.router.navigateByUrl('/pay/confirm',{replaceUrl:true});
   }
 }

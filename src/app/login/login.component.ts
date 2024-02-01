@@ -12,7 +12,6 @@ import { error } from 'console';
 })
 export class LoginComponent implements OnInit {
   loginForm?:any;
-  http = inject(HttpClient)
   fontStyle:any ={}
   
   constructor(private fb:FormBuilder, private router:Router,private loginService:LoginService){}

@@ -48,7 +48,8 @@ export class ConfirmPaymentComponent implements OnInit {
     this.total = this.price * Number(this.passanger)
     this.formDataService.createPayment(userID!, tab!, this.departure!, this.destination!, this.passanger!,this.getTotal().toString()).subscribe((response)=>{
       console.log(response)
-      this.router.navigate(['/pay/process'])
+      localStorage.setItem("total-pay", this.total.toString())
+      this.router.navigateByUrl('/pay/process',{ replaceUrl: true })
       this.stepper.setBooleanValue(true)
     })
 

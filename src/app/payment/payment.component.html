@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
 <div class="w-full min-h-screen bg-neutral-100 py-10">
   <div class="relative">
-    <div id="step" class="px-16 py-5 lg:mx-52">
-      <div class="flex items-center">
+    <div id="step" class="px-16 py-5">
+      <div class="flex items-center lg:px-52 md:mx-52">
         <div id="personal-form" [ngClass]="isValueUpdated?'text-cyan-600':'text-gray-300'" class="flex items-center relative">
           <div [ngClass]="isValueUpdated?'border-cyan-600':'border-gray-300'" class="flex justify-center items-center rounded-full font-semibold text-3xl transition duration-500 ease-in-out h-12 w-12 py-3 border-[3px]">
             {{ isValueUpdated ? '✔' : '1' }}

@@ -3,7 +3,7 @@
     <div class="w-full mx-2 px-2 mt-6 flex flex-col justify-start md:flex-row gap-4 items-center">
         <div class="w-full flex flex-col lg:flex-row md:flex-row">
             <div class="md:border-e lg:border-e border-gray-200">
-                <nav class="flex flex-row items-center me-3 lg:flex-col md:space-y-2" aria-label="Tabs" role="tablist" data-hs-tabs-vertical="true">
+                <nav class="flex flex-row items-center me-3 lg:flex-col md:flex-col md:space-y-2" aria-label="Tabs" role="tablist" data-hs-tabs-vertical="true">
                     <button type="button" (click)="showTab(1)" [ngClass]="activeTab === 1 ? 'bg-[#00A2B7] text-white' : 'bg-neutral-400 text-neutral-600'" class=" w-full md:w-[120px] lg:w-[200px] h-[34px] sm:mb-2 flex rounded-3xl shadow-md md:py-6 justify-center items-center text-center" role="tab">
                       Scan Qris
                     </button>
@@ -14,7 +14,7 @@
             </div>
           <div class="w-full md:ms-3">
             <div id="vertical-tab-with-border-1" *ngIf="activeTab === 1" role="tabpanel" aria-labelledby="vertical-tab-with-border-item-1">
-              <div class="w-full flex flex-col md:justify-center md:flex-row lg:flex-row lg:px-8">
+              <div class="w-full flex flex-col md:justify-center md:flex-col lg:flex-row lg:px-8">
                 <div class="w-full flex flex-col items-center my-4">
                   <h2 class="text-secondary font-medium my-2">Please Scan the QR to continoue Payment</h2>
                   <img src="/assets/images/qris_logo.svg" class="w-full h-11 mb-2" alt="">
@@ -44,7 +44,7 @@
                   <h2 class="text-secondary font-medium my-2">Please transfer payment to the Virtual Account</h2>
                   <img src="/assets/images/bni_logo.svg" class="w-full h-11 mb-2" alt="">
                   <p class="text-secondary font-normal text-xs mt-8 mb-5">Your BNI Virtual Account</p>
-                  <h2 class="text-orange-600 text-4xl font-semibold mb-7" (click)="completePayment()">8297000194629723</h2>
+                  <h2 class="text-orange-600 text-4xl font-semibold mb-7 cursor-pointer" (click)="completePayment()">8297000194629723</h2>
                   <button (click)="completePayment()" class="w-[150px] h-12 px-3 rounded-md bg-orange-500 text-white font-semibold">Copy VA</button>
                 </div>
                 <div class="w-full lg:w-5/12 flex justify-center items-center ">
