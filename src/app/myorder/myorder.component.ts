@@ -25,6 +25,7 @@ export class MyorderComponent implements OnInit {
       this.ticketByUser = response.sort((last, first)=>{
         const firstDate = new Date(first.createdAt).getTime()
         const lastDate = new Date(last.createdAt).getTime()
+        this.getIconPath(first.service.name)
         return firstDate - lastDate;
       })
       this.loading = false;
@@ -38,5 +39,20 @@ export class MyorderComponent implements OnInit {
     const parsedDate = new Date(tglTransaksi);
     const formatDate = this.datePip.transform(parsedDate,'dd MMM yy HH:mm:ss')
     return formatDate || ''
+  }
+
+  getIconPath(serviceName: string): string {
+    switch(serviceName) {
+      case 'KRL':
+        return '/assets/images/icon-krl.svg';
+      case 'TJ':
+        return '/assets/images/tj-enable.svg';
+      case 'LRT':
+        return '/assets/images/lrt-enable.svg';
+      case 'MRT':
+        return '/assets/images/mrt-enable.svg';
+      default:
+        return '/assets/images/icon-krl.svg';
+    }
   }
 }

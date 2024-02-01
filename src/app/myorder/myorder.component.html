@@ -17,7 +17,8 @@
                 <!-- Konten Card yang sesungguhnya -->
                 <div class="card-body flex flex-row items-center font-inter p-5 flex-grow overflow-x-auto">
                   <div class="py-4 px-4 mx-auto">
-                    <img src="/assets/images/icon-krl.svg" class="w-10 h-10" alt="" />
+                    <img [src]="getIconPath(item.service.name)"
+                    class="w-10 h-10" alt=""/>
                   </div>
                   <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base ">
                     <h2 class="font-normal text-neutral-600 mb-2">#Order ID</h2>

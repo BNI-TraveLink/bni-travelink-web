@@ -28,8 +28,11 @@ export class ConfirmPaymentComponent implements OnInit {
     this.destination = sessionStorage.getItem('destination')
     this.departure = sessionStorage.getItem('departure')
     this.passanger = sessionStorage.getItem('passenger')
-    this.service.getPriceKRL().subscribe((data)=>{
+
+    const activeTab = localStorage.getItem('tab')
+    this.service.getPriceTiket(activeTab!).subscribe((data)=>{
       this.price = data
+      console.log(data)
     })
    
   }
@@ -41,8 +44,9 @@ export class ConfirmPaymentComponent implements OnInit {
   }
   onSubmit():void{
     const userID = localStorage.getItem("userID")
+    const tab = sessionStorage.getItem("tab-select")
     this.total = this.price * Number(this.passanger)
-    this.formDataService.createPayment(userID!, "KRL", this.departure!, this.destination!, this.passanger!,this.getTotal().toString()).subscribe((response)=>{
+    this.formDataService.createPayment(userID!, tab!, this.departure!, this.destination!, this.passanger!,this.getTotal().toString()).subscribe((response)=>{
       console.log(response)
       this.router.navigate(['/pay/process'])
       this.stepper.setBooleanValue(true)

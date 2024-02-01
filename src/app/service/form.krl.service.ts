@@ -74,10 +74,7 @@ export class FormKRLDataService{
         return new Observable<string>(observe =>{
             axios.post<string>(`${environment.apiUrl}/payment/updatePayment`,formUpdatePay).then(response =>{
                 const message = response.data
-                console.log(message)
-                
-                // if(response.status ==201)
-                
+                console.log(message)                
                 observe.next(message)
                 observe.complete()
             }).catch(error =>{

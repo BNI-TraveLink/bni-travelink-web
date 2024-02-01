@@ -9,22 +9,24 @@ export class HomeService{
     stations :Station[] = []
     constructor(){}
 
-    //get semua station
-    getAllStation():Observable<Station[]>{
-        return new Observable<Station[]>(observeable =>{
-            axios.get<Station[]>(`${environment.apiUrl}/stations`).then(response =>{
-                const data = response.data
-                this.stations = data
-                console.log(data)
-                observeable.next(data)
-                observeable.complete()
-            })
-            .catch(error =>{
-                observeable.error(error)
-            })
-        })
-    }
+    getStationByServiceName(tab:string):Observable<Station[]>{
+      return new Observable<Station[]>(observeable =>{
+        axios.get<Station[]>(`${environment.apiUrl}/service/getStationByServiceName`,{params: {
+          serviceName: tab,
+        },}).then(response =>{
+          const data = response.data
+          this.stations = data
+          console.log(data)
+          observeable.next(data)
+          observeable.complete()
+      })
+      .catch(error =>{
+          observeable.error(error)
+      })
+      })
 
+
+    }
     searchStation(query: string): Observable<Station[]> {
         const filteredStations = this.stations.filter((station) =>
           station.station_name.toLowerCase().includes(query.toLowerCase())
