@@ -23,12 +23,14 @@
       <div class="absolute top-0 -left-full h-screen w-8/12 bg-white border opacity-0
       group-focus:left-0 group-focus:opacity-100 transition-all duration-300 cursor-pointer pt-10">
         <img src="/assets/images/logo-bnitravelink.svg" class="w-[100px] h-[75px] bg-contain pl-4" alt="">
-        <ul class="flex flex-col items-center w-full text-base">
-          <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a routerLink="/home">Home</a></li>
-          <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a href="https://www.bni.co.id/id-id/">About Us</a></li>
-          <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a routerLink="/myorder">MyOrder</a></li>
-          <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a (click)="logout()">Logout</a></li>
-        </ul>
+        <nav>
+          <ul class="md:flex items-center pr-10 text-base font-semibold cursor-pointer">
+            <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a (click)="home()">Home</a></li>
+            <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a (click)="aboutUs()">About Us</a></li>
+            <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a (click)="myOrder()">MyOrder</a></li>
+            <li class="text-secondary font-medium hover:text-orange-600 py-3 px-4"> <a (click)="logout()">Logout</a></li>
+          </ul>
+        </nav>
       </div>
     </button>
   </div>
