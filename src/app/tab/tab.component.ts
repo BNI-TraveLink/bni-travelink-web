@@ -38,12 +38,7 @@ export class TabComponent implements OnInit {
 
   constructor(private homeService: HomeService, private router: Router, private formService: FormKRLDataService) { }
   ngOnInit() {
-    this.homeService.getAllStation().subscribe(response => {
-      // console.log("Result" + response)
-      this.stations = response
-      this.destinationStation = response
-    })
-
+    this.getStationByTab(this.activeTab)
     this.departureControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -85,9 +80,6 @@ export class TabComponent implements OnInit {
     this.isSearchingDestination = false
   }
 
-  
-
-
 
   handleDepartureKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
@@ -120,12 +112,18 @@ export class TabComponent implements OnInit {
   }
 
 
-  formDataLondon: any = { username: '', password: '' };
-  formDataParis: any = { username: '', password: '' };
-  formDataTokyo: any = { username: '', password: '' };
-
   openCity(cityName: string): void {
     this.activeTab = cityName;
+    this.getStationByTab(cityName)
+  }
+
+  getStationByTab(cityName:string){
+    this.homeService.getStationByServiceName(cityName).subscribe(response => {
+      console.log("Result" + response)
+      localStorage.setItem("tab",cityName)
+      this.stations = response
+      this.destinationStation = response
+    })
   }
 
   toggleStations(): void {
@@ -135,14 +133,24 @@ export class TabComponent implements OnInit {
   }
 
   submitForm(cityName: string): void {
-    if(cityName == "KRL"){
-      
+    if(this.isFormValid()){
       this.passenger = this.passengerCountControl.value
       sessionStorage.setItem('departure', this.departure);
       sessionStorage.setItem('destination', this.destination);
       sessionStorage.setItem('passenger', this.passenger);
+      sessionStorage.setItem('tab-select', cityName)
       this.navigateToPay()
-    }  
+      }
+      else{
+        console.log("Form is not valid. Please fill in all required fields.");
+      }
+  }
+
+  // validasi form
+  isFormValid():boolean{
+    return(
+      this.departureControl.valid && this.destinationControl.valid && this.passengerCountControl.valid
+    )
   }
 
   

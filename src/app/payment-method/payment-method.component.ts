@@ -17,12 +17,19 @@ export class PaymentMethodComponent implements OnInit{
 
   completePayment(){
     const orderID : string|null = sessionStorage.getItem('orderID')
-    this.service.getTicket(orderID!).pipe(delay(3000)).subscribe((response)=>{
+    const userID = localStorage.getItem('userID')
+    const val = "+200"
+
+    console.log(orderID, userID)
+
+    this.service.updatePayment(orderID!, userID!, val).pipe(delay(3000)).subscribe((response)=>{
+      console.log('Pesan',response)
+    })
+    this.service.getTicket(orderID!).subscribe(()=>{
       this.router.navigate(['/pay/complete'],{state:{currentStep:'complete'}})
       this.stepper.setisOrderValue(true)
       this.stepper.setCompleteValue(true)
-    })
-   
+      })
   }
   activeTab: number = 1;
 

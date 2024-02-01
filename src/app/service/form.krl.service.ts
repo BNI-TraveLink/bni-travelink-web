@@ -5,6 +5,7 @@ import { LoginService } from "./login.service";
 import { Ticket } from "../models/ticket";
 import { error } from "console";
 import { environment } from "../../environments/environment";
+import { response } from "express";
 
 @Injectable({providedIn:'root'})
 export class FormKRLDataService{
@@ -47,7 +48,7 @@ export class FormKRLDataService{
         this.formData.next(formData)
     }
 
-    //generate Tickete
+    //generate Ticket
     getTicket(orderID:String):Observable<Ticket>{
         return new Observable<Ticket>(observe=>{
             axios.post<Ticket>(`${environment.apiUrl}/tickets/GenerateTicket/${orderID}`).then(response=>{
@@ -57,6 +58,27 @@ export class FormKRLDataService{
                     observe.complete()
                 }  
             }).catch(error =>{
+                observe.error(error)
+            })
+        })
+    }
+
+    //Proses pelunasan
+    updatePayment(orderID:string, userID:string, val:string):Observable<string>{
+        const formUpdatePay = new FormData();
+        console.log('ORDER', orderID)
+        formUpdatePay.append('orderId', orderID);
+        formUpdatePay.append('userid',userID);
+        formUpdatePay.append('val', val);
+
+        return new Observable<string>(observe =>{
+            axios.post<string>(`${environment.apiUrl}/payment/updatePayment`,formUpdatePay).then(response =>{
+                const message = response.data
+                console.log(message)                
+                observe.next(message)
+                observe.complete()
+            }).catch(error =>{
+                console.log(error.message)
                 observe.error(error)
             })
         })

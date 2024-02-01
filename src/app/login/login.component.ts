@@ -26,10 +26,24 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit():void{
-    if(this.loginForm.valid){
-      const userid = this.loginForm.get('userid').value
-      const mpin = this.loginForm.get('mpin').value
-      this.loginService.loginByHash(userid,mpin).subscribe({
+    const useridField = this.loginForm.get('userid')
+    const mpinField = this.loginForm.get('mpin')
+
+    if(useridField && mpinField){
+      if(useridField.invalid) {
+        useridField.markAsTouched(); // Menandai input sebagai "touched" untuk menunjukkan pesan kesalahan
+        return; // Menghentikan eksekusi jika input belum valid
+      }
+  
+      if (mpinField.invalid) {
+        mpinField.markAsTouched(); // Menandai input sebagai "touched" untuk menunjukkan pesan kesalahan
+        return; // Menghentikan eksekusi jika input belum valid
+      }
+
+      const userId = useridField.value
+      const mpin = mpinField.value
+
+      this.loginService.loginByHash(userId,mpin).subscribe({
         next: (result) =>{
           console.log(result.userId)
           this.router.navigate([''])

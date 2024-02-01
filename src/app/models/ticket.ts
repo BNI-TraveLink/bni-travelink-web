@@ -1,13 +1,4 @@
 export interface Ticket {
-    skTicket:     string;
-    ticketNumber: null;
-    isActive:     boolean;
-    createdAt:    Date;
-    updatedAt:    null;
-    transaction:  Transaction;
-}
-
-export interface Transaction {
     skTransaction: string;
     customer:      Customer;
     service:       Service;
@@ -16,8 +7,9 @@ export interface Transaction {
     departure:     string;
     destination:   string;
     amount:        number;
-    updatedAt:     null;
+    updatedAt:     Date | null;
     active:        boolean;
+    orderId:       number;
 }
 
 export interface Customer {
