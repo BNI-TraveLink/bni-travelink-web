@@ -2,13 +2,12 @@
 
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../service/home.service';
-import { Init } from 'v8';
-import { response } from 'express';
 import { Station } from '../models/stations';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormKRLDataService } from '../service/form.krl.service';
+import { Stepper } from '../service/stepper.service';
 
 @Component({
   selector: 'app-tab',
@@ -36,7 +35,7 @@ export class TabComponent implements OnInit {
   destination=''
   departure =''
 
-  constructor(private homeService: HomeService, private router: Router, private formService: FormKRLDataService) { }
+  constructor(private homeService: HomeService, private router: Router, private stepper : Stepper) { }
   ngOnInit() {
     this.getStationByTab(this.activeTab)
     this.departureControl.valueChanges.pipe(
@@ -139,6 +138,12 @@ export class TabComponent implements OnInit {
       sessionStorage.setItem('destination', this.destination);
       sessionStorage.setItem('passenger', this.passenger);
       sessionStorage.setItem('tab-select', cityName)
+
+      this.stepper.setBooleanValue(false)
+      this.stepper.setisOrderValue(false)
+      this.stepper.setCompleteValue(false)
+
+      
       this.navigateToPay()
       }
       else{
