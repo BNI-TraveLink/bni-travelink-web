@@ -46,7 +46,7 @@
             <div class="inline-flex rounded-2xl shadow w-full py-2 px-3 bg-white text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
               <img src="/assets/images/train-icon.svg" alt="">
               <input
-                class="w-full appearance-none border-none focus:outline-none ml-2"
+                class="w-full appearance-none border-none focus:outline-none ml-2 text-secondary"
                 id="departure"
                 name="departure"
                 type="text"
@@ -97,9 +97,9 @@
             <div *ngIf="destinationControl.hasError('required') && (destinationControl.dirty || destinationControl.touched)" class="text-red-500 text-xs mt-1">
               Destination is required.
             </div>
-            <div *ngIf="isSearchingDestination" class="search-results absolute mt-2 w-full h-48 top-full left-0 bg-white border border-solid border-gray-300 shadow-md z-10 max-h-48 overflow-y-auto">
+            <div *ngIf="isSearchingDestination" class="search-results absolute mt-2 w-full top-full left-0 bg-white border border-solid border-gray-300 shadow-md z-10 max-h-32 md:max-h-48 lg:max-h-48 overflow-y-auto">
               <!-- Display search results here -->
-              <div *ngFor="let destinationStation of searchedDestination" (click)="selectedDestination(destinationStation)" class="py-2 px-4 cursor-auto border-b border-solid border-gray-300">
+              <div *ngFor="let destinationStation of searchedDestination" (click)="selectedDestination(destinationStation)" class="py-2 px-4 text-secondary cursor-auto border-b border-solid border-gray-300">
                 {{ destinationStation.station_name }}
               </div>
             </div>
@@ -140,7 +140,6 @@
           </div>
          
         </div>
-        
       </form>
       </div>
       <button (click)="submitForm('KRL')"

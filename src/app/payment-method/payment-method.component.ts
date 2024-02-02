@@ -26,7 +26,7 @@ export class PaymentMethodComponent implements OnInit{
     })
     this.service.getTicket(orderID!).subscribe(()=>{
       this.router.navigateByUrl('/pay/complete',{state:{currentStep:'complete'}, replaceUrl:true})
-      this.stepper.setisOrderValue(true)
+      // this.stepper.setisOrderValue(true)
       this.stepper.setCompleteValue(true)
       })
   }

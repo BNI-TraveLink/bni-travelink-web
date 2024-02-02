@@ -35,7 +35,7 @@ export class TabComponent implements OnInit {
   destination=''
   departure =''
 
-  constructor(private homeService: HomeService, private router: Router, private stepper : Stepper) { }
+  constructor(private homeService: HomeService, private router: Router, private stepper:Stepper) { }
   ngOnInit() {
     this.getStationByTab(this.activeTab)
     this.departureControl.valueChanges.pipe(
@@ -58,22 +58,13 @@ export class TabComponent implements OnInit {
 
   }
   selectedStation(stations: Station) {
-    // console.log('Selected Station', stations)
     this.departureControl.setValue(stations.station_name)
-    // this.destinationControl.setValue(stations.station_name)
     this.departure = this.departureControl.value
     console.log('Tujuan', this.departure)
     this.isSearching = false
   }
 
-  navigateToPaymentMethod() {
-    // Lakukan navigasi ke langkah PaymentMethodComponent
-    this.router.navigate(['pay/confirm']);
-  }
-
   selectedDestination(stations: Station) {
-    // console.log('Selected Station', stations)
-    // this.departureControl.setValue(stations.station_name)
     this.destinationControl.setValue(stations.station_name)
     this.destination = this.destinationControl.value
     this.isSearchingDestination = false
@@ -139,10 +130,9 @@ export class TabComponent implements OnInit {
       sessionStorage.setItem('passenger', this.passenger);
       sessionStorage.setItem('tab-select', cityName)
 
-      this.stepper.setBooleanValue(false)
+      this.stepper.setBooleanValue(true)
       this.stepper.setisOrderValue(false)
       this.stepper.setCompleteValue(false)
-
       
       this.navigateToPay()
       }
@@ -160,6 +150,7 @@ export class TabComponent implements OnInit {
 
   
   navigateToPay() {
+
     this.router.navigateByUrl('/pay/confirm',{replaceUrl:true});
   }
 }

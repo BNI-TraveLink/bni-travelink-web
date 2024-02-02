@@ -50,7 +50,7 @@ export class ConfirmPaymentComponent implements OnInit {
       console.log(response)
       localStorage.setItem("total-pay", this.total.toString())
       this.router.navigateByUrl('/pay/process',{ replaceUrl: true })
-      this.stepper.setBooleanValue(true)
+      this.stepper.setisOrderValue(true)
     })
 
   }
