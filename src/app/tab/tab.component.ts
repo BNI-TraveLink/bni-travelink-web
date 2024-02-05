@@ -62,13 +62,13 @@ export class TabComponent implements OnInit {
   
   selectedStation(stations: Station) {
     this.departureControl.setValue(stations.station_name, { emitEvent: false });
-    this.departure = this.departureControl.value?.toLowerCase() ?? '';
+    this.departure = this.departureControl.value
     this.isSearching = false
   }
 
   selectedDestination(stations: Station) {
     this.destinationControl.setValue(stations.station_name, {emitEvent:false})
-    this.destination = this.destinationControl.value?.toLowerCase() ?? '';
+    this.destination = this.destinationControl.value
     this.isSearchingDestination = false
   }
 
@@ -101,18 +101,8 @@ export class TabComponent implements OnInit {
 
   openCity(cityName: string): void {
     this.activeTab = cityName;
-
-    // this.departureControl.reset();
-    // this.destinationControl.reset();
-
-    this.departure = ''
-    this.destination =''
     this.isSearching = false;
     this.isSearchingDestination = false;
-  
-    // this.searchedStation = [];
-    // this.searchedDestination = [];
-
 
     this.getStationByTab(cityName)
   }
