@@ -31,15 +31,15 @@ export class HomeService{
 
     }
     searchStation(query: string): Observable<Station[]> {
-        const filteredStations = this.stations.filter((station) =>
-          station.station_name.toLowerCase().includes(query.toLowerCase())
-        );
-        return of(filteredStations);
+      const filteredStations = this.stations.filter((station) =>
+      station && station.station_name && station.station_name.toLowerCase().includes(query.toLowerCase())
+    );
+    return of(filteredStations);
       }
 
     searchDestination(query: string): Observable<Station[]> {
       const filteredStations = this.stations.filter((station) =>
-          station.station_name.toLowerCase().includes(query.toLowerCase())
+      station && station.station_name && station.station_name.toLowerCase().includes(query.toLowerCase())
       );
         return of(filteredStations);
       }

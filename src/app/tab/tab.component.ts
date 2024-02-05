@@ -23,9 +23,9 @@ export class TabComponent implements OnInit {
   isSearching: boolean = false;
   isSearchingDestination: boolean = false;
 
-  searchedStation: any = []
+  searchedStation: Station[] = []
 
-  searchedDestination: any = []
+  searchedDestination: Station[] = []
 
   departureControl = new FormControl();
   destinationControl = new FormControl();
@@ -38,14 +38,14 @@ export class TabComponent implements OnInit {
   constructor(private homeService: HomeService, private router: Router, private stepper: Stepper) { }
   ngOnInit() {
 
-    this.openCity(this.activeTab)
+   this.getStationByTab(this.activeTab)
 
     this.departureControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((value) => this.homeService.searchStation(value)),
     ).subscribe((result) => {
-      this.searchedStation = result.length > 0 ? result : [{ station_name: 'No result' }];
+      this.searchedStation = result
       this.isSearching = true;
     });
 
@@ -54,22 +54,21 @@ export class TabComponent implements OnInit {
       distinctUntilChanged(),
       switchMap((value) => this.homeService.searchDestination(value)),
     ).subscribe((result) => {
-      this.searchedDestination = result.length > 0 ? result : [{ station_name: 'No result' }];
+      this.searchedDestination = result
       this.isSearchingDestination = true;
     });
 
   }
   
   selectedStation(stations: Station) {
-    const selectedStation = stations.station_name
-    this.departureControl.setValue(selectedStation, { emitEvent: false });
-    this.departure = this.departureControl.value
+    this.departureControl.setValue(stations.station_name, { emitEvent: false });
+    this.departure = this.departureControl.value?.toLowerCase() ?? '';
     this.isSearching = false
   }
 
   selectedDestination(stations: Station) {
     this.destinationControl.setValue(stations.station_name, {emitEvent:false})
-    this.destination = this.destinationControl.value
+    this.destination = this.destinationControl.value?.toLowerCase() ?? '';
     this.isSearchingDestination = false
   }
 
@@ -95,7 +94,6 @@ export class TabComponent implements OnInit {
       }
       else {
         this.destinationControl.setValue('');
-        event.preventDefault();
       }
     }
   }
@@ -103,30 +101,32 @@ export class TabComponent implements OnInit {
 
   openCity(cityName: string): void {
     this.activeTab = cityName;
-    this.departureControl.setValue('');
-    this.destinationControl.setValue('');
-    switch (this.activeTab) {
-      case "KRL":
-        this.getStationByTab("KRL")
-        break
-      case "MRT":
-        this.getStationByTab("MRT")
-        break
-      case "LRT":
-        this.getStationByTab("LRT")
-        break
-      case "TJ":
-        this.getStationByTab("TJ")
-        break
-    }
+
+    // this.departureControl.reset();
+    // this.destinationControl.reset();
+
+    this.departure = ''
+    this.destination =''
     this.isSearching = false;
     this.isSearchingDestination = false;
+  
+    // this.searchedStation = [];
+    // this.searchedDestination = [];
+
+
+    this.getStationByTab(cityName)
   }
 
   getStationByTab(cityName: string) {
+
+    console.log('getStationByTab called for:', cityName);
+
+    this.searchedStation = [];
+    this.searchedDestination = [];
+
     this.homeService.getStationByServiceName(cityName).subscribe(response => {
       console.log("Result" + response)
-      localStorage.setItem("tab", cityName)
+      localStorage.setItem("tab", cityName)      
       this.stations = response
       this.destinationStation = response
     })
@@ -141,20 +141,14 @@ export class TabComponent implements OnInit {
   }
 
   submitForm(cityName: string): void {
-
-     this.passenger = this.passengerCountControl.value
+    
+    if (this.isFormValid()) {
+      this.passenger = this.passengerCountControl.value
       sessionStorage.setItem('departure', this.departure);
       sessionStorage.setItem('destination', this.destination);
       sessionStorage.setItem('passenger', this.passenger);
       sessionStorage.setItem('tab-select', cityName)
-
-      this.stepper.setBooleanValue(true)
-      this.stepper.setisOrderValue(false)
-      this.stepper.setCompleteValue(false)
-    if (this.isFormValid()) {
-     
-
-
+      
       if (this.departure === this.destination) {
         alert("Tujuan dan Asal tidak boleh sama");
         return;
@@ -162,11 +156,11 @@ export class TabComponent implements OnInit {
       this.navigateToPay()
     }
     else {
+      alert("Invalid Input")
       console.log("Form is not valid. Please fill in all required fields.");
     }
   }
 
-  // validasi form
   isFormValid(): boolean {
     return (
       this.departureControl.valid && this.destinationControl.valid && this.passengerCountControl.valid
@@ -175,7 +169,9 @@ export class TabComponent implements OnInit {
 
 
   navigateToPay() {
-
+    this.stepper.setBooleanValue(true)
+    this.stepper.setisOrderValue(false)
+    this.stepper.setCompleteValue(false)
     this.router.navigateByUrl('/pay/confirm', { replaceUrl: true });
   }
 }
