@@ -31,15 +31,15 @@ export class TabComponent implements OnInit {
   destinationControl = new FormControl();
   passengerCountControl = new FormControl();
 
-  passenger =''
-  destination=''
-  departure =''
+  passenger = ''
+  destination = ''
+  departure = ''
 
-  constructor(private homeService: HomeService, private router: Router, private stepper:Stepper) { }
+  constructor(private homeService: HomeService, private router: Router, private stepper: Stepper) { }
   ngOnInit() {
-    
-    this.getStationByTab(this.activeTab)
-    
+
+    this.openCity(this.activeTab)
+
     this.departureControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -48,7 +48,7 @@ export class TabComponent implements OnInit {
       this.searchedStation = result.length > 0 ? result : [{ station_name: 'No result' }];
       this.isSearching = true;
     });
-    
+
     this.destinationControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -59,45 +59,26 @@ export class TabComponent implements OnInit {
     });
 
   }
-  selectedStation(stations: Station) { 
+  
+  selectedStation(stations: Station) {
     const selectedStation = stations.station_name
-    if(selectedStation !== this.departureControl.value){
-      this.departureControl.setValue(selectedStation)
-      this.departure = this.departureControl.value
-      this.isSearching = false
-    }
+    this.departureControl.setValue(selectedStation, { emitEvent: false });
+    this.departure = this.departureControl.value
+    this.isSearching = false
   }
 
   selectedDestination(stations: Station) {
-    this.destinationControl.setValue(stations.station_name)
+    this.destinationControl.setValue(stations.station_name, {emitEvent:false})
     this.destination = this.destinationControl.value
     this.isSearchingDestination = false
   }
 
-  handleDepartureFocus(): void {
-    if (this.searchedStation.length > 0) {
-      this.isSearching = true;
-    } else {
-      this.isSearching = false;
-    }
-  }
-  
-  handleDestinationFocus(): void {
-    if (this.searchedDestination.length > 0) {
-      this.isSearchingDestination = true;
-    } else {
-      this.isSearchingDestination = false;
-    }
-  }
-
   handleDepartureKeydown(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
-      // Pilih stasiun pertama otomatis jika hasil pencarian tidak kosong
       if (this.searchedStation.length > 0) {
         this.departureControl.setValue(this.searchedStation[0].station_name);
-        // this.destinationControl.setValue(this.searchedDestination[0].station_name)
         this.isSearching = false;
-        event.preventDefault(); // Sembunyikan hasil pencarian setelah Enter
+        event.preventDefault();
       }
       else {
         this.departureControl.setValue('');
@@ -110,7 +91,7 @@ export class TabComponent implements OnInit {
       if (this.searchedDestination.length > 0) {
         this.destinationControl.setValue(this.searchedDestination[0].station_name);
         this.isSearchingDestination = false;
-        event.preventDefault(); // Sembunyikan hasil pencarian setelah Enter
+        event.preventDefault();
       }
       else {
         this.destinationControl.setValue('');
@@ -122,21 +103,30 @@ export class TabComponent implements OnInit {
 
   openCity(cityName: string): void {
     this.activeTab = cityName;
-    this.getStationByTab(cityName)
-
     this.departureControl.setValue('');
     this.destinationControl.setValue('');
-    this.searchedDestination = [];
-    this.searchedStation = [];
-
+    switch (this.activeTab) {
+      case "KRL":
+        this.getStationByTab("KRL")
+        break
+      case "MRT":
+        this.getStationByTab("MRT")
+        break
+      case "LRT":
+        this.getStationByTab("LRT")
+        break
+      case "TJ":
+        this.getStationByTab("TJ")
+        break
+    }
     this.isSearching = false;
     this.isSearchingDestination = false;
   }
 
-  getStationByTab(cityName:string){
+  getStationByTab(cityName: string) {
     this.homeService.getStationByServiceName(cityName).subscribe(response => {
       console.log("Result" + response)
-      localStorage.setItem("tab",cityName)
+      localStorage.setItem("tab", cityName)
       this.stations = response
       this.destinationStation = response
     })
@@ -144,15 +134,15 @@ export class TabComponent implements OnInit {
 
   toggleStations(): void {
     const departureValue = this.departureControl.value;
-    this.departureControl.setValue(this.destinationControl.value);
-    this.destinationControl.setValue(departureValue);
-    this.searchedDestination =[]
-    this.searchedStation =[]
+    this.departureControl.setValue(this.destinationControl.value, {emitEvent:false});
+    this.destinationControl.setValue(departureValue, {emitEvent:false});
+    this.isSearching = false
+    this.isSearchingDestination = false
   }
 
   submitForm(cityName: string): void {
-    if(this.isFormValid()){
-      this.passenger = this.passengerCountControl.value
+
+     this.passenger = this.passengerCountControl.value
       sessionStorage.setItem('departure', this.departure);
       sessionStorage.setItem('destination', this.destination);
       sessionStorage.setItem('passenger', this.passenger);
@@ -161,28 +151,31 @@ export class TabComponent implements OnInit {
       this.stepper.setBooleanValue(true)
       this.stepper.setisOrderValue(false)
       this.stepper.setCompleteValue(false)
+    if (this.isFormValid()) {
+     
+
 
       if (this.departure === this.destination) {
         alert("Tujuan dan Asal tidak boleh sama");
         return;
       }
       this.navigateToPay()
-      }
-      else{
-        console.log("Form is not valid. Please fill in all required fields.");
-      }
+    }
+    else {
+      console.log("Form is not valid. Please fill in all required fields.");
+    }
   }
 
   // validasi form
-  isFormValid():boolean{
-    return(
+  isFormValid(): boolean {
+    return (
       this.departureControl.valid && this.destinationControl.valid && this.passengerCountControl.valid
     )
   }
 
-  
+
   navigateToPay() {
 
-    this.router.navigateByUrl('/pay/confirm',{replaceUrl:true});
+    this.router.navigateByUrl('/pay/confirm', { replaceUrl: true });
   }
 }

@@ -10,10 +10,13 @@ export class HomeService{
     constructor(){}
 
     getStationByServiceName(tab:string):Observable<Station[]>{
+      const token = localStorage.getItem('token')
+      console.log('token', token)
       return new Observable<Station[]>(observeable =>{
-        axios.get<Station[]>(`${environment.apiUrl}/service/getStationByServiceName`,{params: {
-          serviceName: tab,
-        },}).then(response =>{
+        const params ={
+          serviceName:tab
+        }
+        axios.get<Station[]>(`${environment.apiUrl}/service/getStationByServiceName`, {params: params}).then(response =>{
           const data = response.data
           this.stations = data
           console.log(data)
@@ -34,10 +37,10 @@ export class HomeService{
         return of(filteredStations);
       }
 
-      searchDestination(query: string): Observable<Station[]> {
-        const filteredStations = this.stations.filter((station) =>
+    searchDestination(query: string): Observable<Station[]> {
+      const filteredStations = this.stations.filter((station) =>
           station.station_name.toLowerCase().includes(query.toLowerCase())
-        );
+      );
         return of(filteredStations);
       }
 

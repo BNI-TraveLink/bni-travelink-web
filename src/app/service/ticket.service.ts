@@ -9,6 +9,7 @@ import { environment } from "../../environments/environment.development";
 export class TicketService{
     
     showAllTicket(userID: string): Observable<Ticket[]>{
+        console.log(localStorage.getItem('token'))
         return new Observable<Ticket[]>(observer =>{
             axios.get(`${environment.apiUrl}/transaction/userId/${userID}`).then(response=>{
                 const data = response.data

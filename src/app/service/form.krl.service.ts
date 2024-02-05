@@ -32,7 +32,7 @@ export class FormKRLDataService{
         return new Observable<number>(observe=>{
          
             // console.log(amount)
-            axios.post<number>(`${environment.apiUrl}/payment/GeneratePayment`, formDataSubmit, {headers:{'Content-Type':'multipart/form-data'}}).then(response =>{
+            axios.post<number>(`${environment.apiUrl}/payment/GeneratePayment`, formDataSubmit).then(response =>{
                 const data = response.data
                 // console.log("response", data)
                 sessionStorage.setItem("orderID", data.toString())
