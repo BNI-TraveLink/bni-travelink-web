@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../service/home.service';
 import { Station } from '../models/stations';
 import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, flatMap, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
 import { Stepper } from '../service/stepper.service';
 
@@ -16,7 +15,6 @@ import { Stepper } from '../service/stepper.service';
 })
 export class TabComponent implements OnInit {
   activeTab: string = 'KRL';
-  title = "Halo"
   stations: Station[] = []
   destinationStation: Station[] = []
 
@@ -27,83 +25,25 @@ export class TabComponent implements OnInit {
 
   searchedDestination: Station[] = []
 
-  departureControl = new FormControl();
-  destinationControl = new FormControl();
-  passengerCountControl = new FormControl();
+  departureControl :any;
+  destinationControl : any;
+  passengerCountControl:any;
 
-  passenger = ''
-  destination = ''
-  departure = ''
 
-  constructor(private homeService: HomeService, private router: Router, private stepper: Stepper) { }
-  ngOnInit() {
-
-   this.getStationByTab(this.activeTab)
-
-    this.departureControl.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap((value) => this.homeService.searchStation(value)),
-    ).subscribe((result) => {
-      this.searchedStation = result
-      this.isSearching = true;
-    });
-
-    this.destinationControl.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap((value) => this.homeService.searchDestination(value)),
-    ).subscribe((result) => {
-      this.searchedDestination = result
-      this.isSearchingDestination = true;
-    });
-
-  }
+  constructor(private homeService: HomeService, private router: Router, private stepper: Stepper) {}  
   
-  selectedStation(stations: Station) {
-    this.departureControl.setValue(stations.station_name, { emitEvent: false });
-    this.departure = this.departureControl.value
-    this.isSearching = false
-  }
+  ngOnInit() {
+  
+  this.departureControl = new FormControl('')
+  this.destinationControl = new FormControl('')
+  this.passengerCountControl = new FormControl('')
 
-  selectedDestination(stations: Station) {
-    this.destinationControl.setValue(stations.station_name, {emitEvent:false})
-    this.destination = this.destinationControl.value
-    this.isSearchingDestination = false
+   this.openCity(this.activeTab)
   }
-
-  handleDepartureKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      if (this.searchedStation.length > 0) {
-        this.departureControl.setValue(this.searchedStation[0].station_name);
-        this.isSearching = false;
-        event.preventDefault();
-      }
-      else {
-        this.departureControl.setValue('');
-      }
-    }
-  }
-
-  handleDestinationKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      if (this.searchedDestination.length > 0) {
-        this.destinationControl.setValue(this.searchedDestination[0].station_name);
-        this.isSearchingDestination = false;
-        event.preventDefault();
-      }
-      else {
-        this.destinationControl.setValue('');
-      }
-    }
-  }
-
 
   openCity(cityName: string): void {
     this.activeTab = cityName;
-    this.isSearching = false;
-    this.isSearchingDestination = false;
-
+    console.log(this.activeTab)
     this.getStationByTab(cityName)
   }
 
@@ -133,16 +73,25 @@ export class TabComponent implements OnInit {
   submitForm(cityName: string): void {
     
     if (this.isFormValid()) {
-      this.passenger = this.passengerCountControl.value
-      sessionStorage.setItem('departure', this.departure);
-      sessionStorage.setItem('destination', this.destination);
-      sessionStorage.setItem('passenger', this.passenger);
+      const passenger = this.passengerCountControl.value
+      const departure = this.departureControl.value
+      const destination = this.destinationControl.value
+
+      sessionStorage.setItem('departure', departure!);
+      sessionStorage.setItem('destination', destination!);
+      sessionStorage.setItem('passenger', passenger!);
       sessionStorage.setItem('tab-select', cityName)
       
-      if (this.departure === this.destination) {
-        alert("Tujuan dan Asal tidak boleh sama");
+      if (departure === destination) {
+        alert("Please select different destination");
         return;
       }
+
+      if(departure == "" && destination ==""){
+        alert("Please, Select your destination");
+        return;
+      }
+
       this.navigateToPay()
     }
     else {

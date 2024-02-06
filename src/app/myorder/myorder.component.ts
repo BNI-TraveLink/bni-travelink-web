@@ -12,11 +12,47 @@ import { DatePipe } from '@angular/common';
 export class MyorderComponent implements OnInit {
   ticketByUser: Ticket[] = []
   loading = true
-  pageSize = 5;
-  currentPage = 1;
-  totalPages: any;
-  pagedTicketData: Ticket[] = [];
-  pages: number[] = [];
+  itemsPerPage: number = 5;
+  currentPage: number = 1;
+
+  get totalPages(): number {
+    return Math.ceil(this.ticketByUser.length / this.itemsPerPage);
+  }
+
+  get visibleTickets(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.ticketByUser.slice(startIndex, endIndex);
+  }
+
+  get pageNumbers(): number[] {
+    const totalVisiblePages = 5; // You can adjust this value based on your preference
+    const startPage = Math.max(1, this.currentPage - Math.floor(totalVisiblePages / 2));
+    const endPage = Math.min(this.totalPages, startPage + totalVisiblePages - 1);
+
+    return Array(endPage - startPage + 1).fill(0).map((_, i) => startPage + i);
+  }
+
+  goToPage(page: number) {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+
 
   ngOnInit(): void {
     const userID = localStorage.getItem('userID')
