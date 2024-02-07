@@ -6,7 +6,7 @@ import { Station } from '../models/stations';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Stepper } from '../service/stepper.service';
-
+import { strict } from 'assert';
 
 @Component({
   selector: 'app-tab',
@@ -14,16 +14,20 @@ import { Stepper } from '../service/stepper.service';
   styleUrls: ['./tab.component.scss']
 })
 export class TabComponent implements OnInit {
-  activeTab: string = 'KRL';
+  activeTab: string = 'KRL'
   stations: Station[] = []
   destinationStation: Station[] = []
 
-  isSearching: boolean = false;
-  isSearchingDestination: boolean = false;
+  isSearching: boolean = false
+  isSearchingDestination: boolean = false
+
+  isVisible: boolean = false
 
   searchedStation: Station[] = []
 
   searchedDestination: Station[] = []
+
+  mapImagePath: string ='';
 
   departureControl :any;
   destinationControl : any;
@@ -112,5 +116,30 @@ export class TabComponent implements OnInit {
     this.stepper.setisOrderValue(false)
     this.stepper.setCompleteValue(false)
     this.router.navigateByUrl('/pay/confirm', { replaceUrl: true });
+  }
+
+  showMap(serviceName: string):string{
+    switch(serviceName) {
+      case 'KRL':
+        return '/assets/images/rutekrl.png';
+      case 'TJ':
+        return '/assets/images/rutetransjakarta.png';
+      case 'LRT':
+        return '/assets/images/rutelrt.png';
+      case 'MRT':
+        return '/assets/images/rutemrt.png';
+      default:
+        return '/assets/images/rutekrl.png';
+    }
+  }
+
+  openMap(tab:string):void{
+    console.log
+    this.mapImagePath= this.showMap(tab)
+    this.isVisible =!this.isVisible
+  }
+
+  closeMap(){
+    return this.isVisible =!this.isVisible
   }
 }

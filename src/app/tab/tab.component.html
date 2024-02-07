@@ -40,7 +40,7 @@
       *ngIf="activeTab === 'KRL'">
       <div
         class="lg:h-[436px] md:h-[436px] sm:h-[800px] w-full pt-24 md:py-8 md:mt-16 flex flex-col justify-center items-center  bg-neutral-200 rounded-3xl relative">
-        <button
+        <button (click)="openMap('KRL')"
           class="absolute top-10 right-5 border flex items-center border-cyan-600 px-4 py-2 rounded-md text-cyan-600 font-semibold">
           <span class="mr-2">
             <img src="/assets/images/map.svg" alt="">
@@ -140,7 +140,6 @@
 
           </div>
         </form>
-       
       </div>
       <button (click)="submitForm('KRL')"
         class="w-96 h-16 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 absolute -bottom-4 rounded-2xl focus:outline-none focus:shadow-outline">
@@ -150,7 +149,14 @@
     <div id="MRT" class="tabcontent w-full flex flex-col justify-center items-center relative"
       *ngIf="activeTab === 'MRT'">
       <div
-        class="lg:h-[436px] md:h-[436px] sm:h-[800px] w-full pt-24 md:py-8 md:mt-16 flex flex-col justify-center items-center  bg-neutral-200 rounded-3xl">
+        class="lg:h-[436px] md:h-[436px] sm:h-[800px] w-full pt-24 md:py-8 md:mt-16 flex flex-col justify-center items-center  bg-neutral-200 rounded-3xl relative">
+        <button (click)="openMap('MRT')"
+        class="absolute top-10 right-5 border flex items-center border-cyan-600 px-4 py-2 rounded-md text-cyan-600 font-semibold">
+        <span class="mr-2">
+          <img src="/assets/images/map.svg" alt="">
+        </span>
+        View Map
+      </button>
         <img src="/assets/images/mrt-jakarta.svg" class="w-40 h-32" alt="logo">
         <form class="flex flex-col">
           <div id="destination-krl" class="flex flex-col md:flex-row">
@@ -254,7 +260,15 @@
     <div id="LRT" class="tabcontent w-full flex flex-col justify-center items-center relative"
       *ngIf="activeTab === 'LRT'">
       <div
-        class="lg:h-[436px] md:h-[436px] sm:h-[800px] w-full pt-24 md:py-8 md:mt-16 flex flex-col justify-center items-center  bg-neutral-200 rounded-3xl">
+        class="lg:h-[436px] md:h-[436px] sm:h-[800px] w-full pt-24 md:py-8 md:mt-16 flex flex-col justify-center items-center  bg-neutral-200 rounded-3xl relative">
+        <button (click)="openMap('LRT')"
+        class="absolute top-10 right-5 border flex items-center border-cyan-600 px-4 py-2 rounded-md text-cyan-600 font-semibold">
+        <span class="mr-2">
+          <img src="/assets/images/map.svg" alt="">
+        </span>
+        View Map
+      </button>
+        
         <img src="/assets/images/lrt-jakarta.svg" class="w-40 h-10 mb-4" alt="logo">
         <form class="flex flex-col">
           <div id="destination-krl" class="flex flex-col md:flex-row">
@@ -357,7 +371,14 @@
     <div id="TJ" class="tabcontent w-full flex flex-col justify-center items-center relative"
       *ngIf="activeTab === 'TJ'">
       <div
-        class="lg:h-[436px] md:h-[436px] sm:h-[800px] w-full pt-24 md:py-8 md:mt-16 flex flex-col justify-center items-center  bg-neutral-200 rounded-3xl">
+        class="lg:h-[436px] md:h-[436px] sm:h-[800px] w-full pt-24 md:py-8 md:mt-16 flex flex-col justify-center items-center  bg-neutral-200 rounded-3xl relative">
+        <button (click)="openMap('TJ')"
+        class="absolute top-10 right-5 border flex items-center border-cyan-600 px-4 py-2 rounded-md text-cyan-600 font-semibold">
+        <span class="mr-2">
+          <img src="/assets/images/map.svg" alt="">
+        </span>
+        View Map
+      </button>
         <img src="/assets/images/tj-jakarta.svg" class="w-40 h-10 mb-4" alt="logo">
         <form class="flex flex-col">
           <div id="destination-krl" class="flex flex-col md:flex-row">
@@ -458,4 +479,15 @@
       </button>
     </div>
   </div>
+
+  <div *ngIf="isVisible" class="fixed top-0 left-0 inset-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
+    <img [src]="mapImagePath" class="w-[475px] h-[600px] object-contain" alt="">
+    <div class="absolute top-0 right-0 mr-4 mt-4">
+        <button type="button" (click)="closeMap()" class="px-3 py-2 text-black">
+            <img src="/assets/images/close.svg" alt="">   
+        </button>
+    </div>
+</div>
+
+
 </div>
