@@ -6,7 +6,8 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage:{
-        'login-landing':"url('/assets/images/kota.png')"
+        'login-landing':"url('/assets/images/kota.png')",
+        'home':"url('/assets/images/bg-home.png')"
       },
       fontFamily: { 
         "poppins": ['Poppins', 'sans-serif'], 
