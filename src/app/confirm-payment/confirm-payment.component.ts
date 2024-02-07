@@ -22,6 +22,60 @@ export class ConfirmPaymentComponent implements OnInit {
 
   isVissible:boolean = false
 
+  selectedTerms: string[] = [];
+
+  tnc = [
+    {
+      service_name: 'KRL',
+      term_and_condition:[
+        "1.Commuter Line ticket orders via BNI TraveLink are available for travel by Kereta Commuter Indonesia (KCI) or Commuter Line.",
+        "2.Users must have a BNI account to order tickets via BNI TraveLink.",
+        "3.Commuter Line ticket users must comply with the applicable regulations during the trip, including security rules and regulations that have been established.",
+        "4.We have the right to cancel or refuse Commuter Line ticket orders if there are indications of fraud or violation of the terms and conditions specified.",
+        "5.Departure station and destination station cannot be changed.",
+        "6.Tickets that have been ordered cannot be cancelled.",
+        "7.Commuter Line ticket users must exit at the destination station they have booked, otherwise the QR code cannot be used."
+      ]
+    },
+    {
+      service_name: 'MRT',
+      term_and_condition:[
+        "1.MRT ticket orders via BNI TraveLink are available for travel by Mass Rapid Transit Jakarta.",
+        "2.Users must have a BNI account to order tickets via BNI TraveLink.",
+        "3.MRT ticket users must comply with the applicable regulations during the trip, including security rules and regulations that have been established.",
+        "4.We have the right to cancel or refuse MRT ticket orders if there are indications of fraud or violation of the terms and conditions specified.",
+        "5.Departure station and destination station cannot be changed.",
+        "6.Tickets that have been ordered cannot be cancelled.",
+        "7.MRT ticket users must exit at the destination station they have booked, otherwise the QR code cannot be used."
+      ]
+    },
+    {
+      service_name: 'LRT',
+      term_and_condition:[
+        "1.LRT ticket orders via BNI TraveLink are available for travel by Light Rail Transit Jakarta.",
+        "2.Users must have a BNI account to order tickets via BNI TraveLink.",
+        "3.LRT ticket users must comply with the applicable regulations during the trip, including security rules and regulations that have been established.",
+        "4.We have the right to cancel or refuse LRT ticket orders if there are indications of fraud or violation of the terms and conditions specified.",
+        "5.Departure station and destination station cannot be changed.",
+        "6.Tickets that have been ordered cannot be cancelled.",
+        "7.LRT ticket users must exit at the destination station they have booked, otherwise the QR code cannot be used."
+      ]
+    },
+    {
+      service_name: 'TJ',
+      term_and_condition:[
+        "1.TiJe ticket orders via BNI TraveLink are available for travel by Bus Rapid Transit (BRT) Jakarta.",
+        "2.Users must have a BNI account to order tickets via BNI TraveLink.",
+        "3.TiJe ticket users must comply with the applicable regulations during the trip, including security rules and regulations that have been established.",
+        "4.We have the right to cancel or refuse TiJe ticket orders if there are indications of fraud or violation of the terms and conditions specified.",
+        "5.Departure station and destination station cannot be changed.",
+        "6.Tickets that have been ordered cannot be cancelled.",
+        "7.TiJe ticket users must exit at the destination bus stop they have booked, otherwise the QR code cannot be used."
+      ]
+    }
+
+  ]
+
 
   ngOnInit(): void {
 
@@ -30,6 +84,7 @@ export class ConfirmPaymentComponent implements OnInit {
     this.passanger = sessionStorage.getItem('passenger')
 
     const activeTab = localStorage.getItem('tab')
+    this.showTerms(activeTab!)
     this.service.getPriceTiket(activeTab!).subscribe((data)=>{
       this.price = data
       console.log(data)
@@ -42,14 +97,25 @@ export class ConfirmPaymentComponent implements OnInit {
   getTotal():number{
     return this.price * Number(this.passanger);
   }
+
+  showTerms(serviceName: string): void {
+    const selectedService = this.tnc.find(service => service.service_name === serviceName);
+    if (selectedService) {
+        this.selectedTerms = selectedService.term_and_condition;
+    } else {
+        this.selectedTerms = []; // Reset selected terms if service not found
+    }
+}
+
   onSubmit():void{
     const userID = localStorage.getItem("userID")
     const tab = sessionStorage.getItem("tab-select")
     this.total = this.price * Number(this.passanger)
     this.formDataService.createPayment(userID!, tab!, this.departure!, this.destination!, this.passanger!,this.getTotal().toString()).subscribe((response)=>{
       console.log(response)
-      this.router.navigate(['/pay/process'])
-      this.stepper.setBooleanValue(true)
+      localStorage.setItem("total-pay", this.total.toString())
+      this.router.navigateByUrl('/pay/process',{ replaceUrl: true })
+      this.stepper.setisOrderValue(true)
     })
 
   }

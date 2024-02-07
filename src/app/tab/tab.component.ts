@@ -2,13 +2,11 @@
 
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../service/home.service';
-import { Init } from 'v8';
-import { response } from 'express';
 import { Station } from '../models/stations';
 import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
-import { FormKRLDataService } from '../service/form.krl.service';
+import { Stepper } from '../service/stepper.service';
+import { strict } from 'assert';
 
 @Component({
   selector: 'app-tab',
@@ -16,111 +14,53 @@ import { FormKRLDataService } from '../service/form.krl.service';
   styleUrls: ['./tab.component.scss']
 })
 export class TabComponent implements OnInit {
-  activeTab: string = 'KRL';
-  title = "Halo"
+  activeTab: string = 'KRL'
   stations: Station[] = []
   destinationStation: Station[] = []
 
-  isSearching: boolean = false;
-  isSearchingDestination: boolean = false;
+  isSearching: boolean = false
+  isSearchingDestination: boolean = false
 
-  searchedStation: any = []
+  isVisible: boolean = false
 
-  searchedDestination: any = []
+  searchedStation: Station[] = []
 
-  departureControl = new FormControl();
-  destinationControl = new FormControl();
-  passengerCountControl = new FormControl();
+  searchedDestination: Station[] = []
 
-  passenger =''
-  destination=''
-  departure =''
+  mapImagePath: string ='';
 
-  constructor(private homeService: HomeService, private router: Router, private formService: FormKRLDataService) { }
+  departureControl :any;
+  destinationControl : any;
+  passengerCountControl:any;
+
+
+  constructor(private homeService: HomeService, private router: Router, private stepper: Stepper) {}  
+  
   ngOnInit() {
-    this.getStationByTab(this.activeTab)
-    this.departureControl.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      switchMap((value) => this.homeService.searchStation(value))
-    ).subscribe((result) => {
+  
+  this.departureControl = new FormControl('')
+  this.destinationControl = new FormControl('')
+  this.passengerCountControl = new FormControl('')
 
-      this.searchedStation = result.length > 0 ? result : [{ station_name: 'No result' }];
-      this.isSearching = true;
-    })
-
-    this.destinationControl.valueChanges.pipe(debounceTime(300),
-      distinctUntilChanged(),
-      switchMap((value) => this.homeService.searchDestination(value))
-    ).subscribe((result) => {
-      this.searchedDestination = result.length > 0 ? result : [{ station_name: 'No result' }];
-      this.isSearchingDestination = true;
-    })
-
+   this.openCity(this.activeTab)
   }
-  selectedStation(stations: Station) {
-    // console.log('Selected Station', stations)
-    this.departureControl.setValue(stations.station_name)
-    // this.destinationControl.setValue(stations.station_name)
-    this.departure = this.departureControl.value
-    console.log('Tujuan', this.departure)
-    this.isSearching = false
-  }
-
-  navigateToPaymentMethod() {
-    // Lakukan navigasi ke langkah PaymentMethodComponent
-    this.router.navigate(['pay/confirm']);
-  }
-
-  selectedDestination(stations: Station) {
-    // console.log('Selected Station', stations)
-    // this.departureControl.setValue(stations.station_name)
-    this.destinationControl.setValue(stations.station_name)
-    this.destination = this.destinationControl.value
-    this.isSearchingDestination = false
-  }
-
-
-  handleDepartureKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      // Pilih stasiun pertama otomatis jika hasil pencarian tidak kosong
-      if (this.searchedStation.length > 0) {
-        this.departureControl.setValue(this.searchedStation[0].station_name);
-        // this.destinationControl.setValue(this.searchedDestination[0].station_name)
-        this.isSearching = false;
-        event.preventDefault(); // Sembunyikan hasil pencarian setelah Enter
-      }
-      else {
-        this.departureControl.setValue('');
-      }
-    }
-  }
-
-  handleDestinationKeydown(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
-      // Pilih stasiun pertama otomatis jika hasil pencarian tidak kosong
-      if (this.searchedDestination.length > 0) {
-        this.destinationControl.setValue(this.searchedDestination[0].station_name);
-        // this.destinationControl.setValue(this.searchedDestination[0].station_name)
-        this.isSearchingDestination = false;
-        event.preventDefault(); // Sembunyikan hasil pencarian setelah Enter
-      }
-      else {
-        this.destinationControl.setValue('');
-      }
-    }
-  }
-
 
   openCity(cityName: string): void {
     this.activeTab = cityName;
+    console.log(this.activeTab)
     this.getStationByTab(cityName)
   }
 
-  getStationByTab(cityName:string){
+  getStationByTab(cityName: string) {
+
+    console.log('getStationByTab called for:', cityName);
+
+    this.searchedStation = [];
+    this.searchedDestination = [];
+
     this.homeService.getStationByServiceName(cityName).subscribe(response => {
       console.log("Result" + response)
-      localStorage.setItem("tab",cityName)
+      localStorage.setItem("tab", cityName)      
       this.stations = response
       this.destinationStation = response
     })
@@ -128,33 +68,78 @@ export class TabComponent implements OnInit {
 
   toggleStations(): void {
     const departureValue = this.departureControl.value;
-    this.departureControl.setValue(this.destinationControl.value);
-    this.destinationControl.setValue(departureValue);
+    this.departureControl.setValue(this.destinationControl.value, {emitEvent:false});
+    this.destinationControl.setValue(departureValue, {emitEvent:false});
+    this.isSearching = false
+    this.isSearchingDestination = false
   }
 
   submitForm(cityName: string): void {
-    if(this.isFormValid()){
-      this.passenger = this.passengerCountControl.value
-      sessionStorage.setItem('departure', this.departure);
-      sessionStorage.setItem('destination', this.destination);
-      sessionStorage.setItem('passenger', this.passenger);
+    
+    if (this.isFormValid()) {
+      const passenger = this.passengerCountControl.value
+      const departure = this.departureControl.value
+      const destination = this.destinationControl.value
+
+      sessionStorage.setItem('departure', departure!);
+      sessionStorage.setItem('destination', destination!);
+      sessionStorage.setItem('passenger', passenger!);
       sessionStorage.setItem('tab-select', cityName)
+      
+      if (departure === destination) {
+        alert("Please select different destination");
+        return;
+      }
+
+      if(departure == "" && destination ==""){
+        alert("Please, Select your destination");
+        return;
+      }
+
       this.navigateToPay()
-      }
-      else{
-        console.log("Form is not valid. Please fill in all required fields.");
-      }
+    }
+    else {
+      alert("Invalid Input")
+      console.log("Form is not valid. Please fill in all required fields.");
+    }
   }
 
-  // validasi form
-  isFormValid():boolean{
-    return(
+  isFormValid(): boolean {
+    return (
       this.departureControl.valid && this.destinationControl.valid && this.passengerCountControl.valid
     )
   }
 
-  
+
   navigateToPay() {
-    this.router.navigate(['/pay/confirm']);
+    this.stepper.setBooleanValue(true)
+    this.stepper.setisOrderValue(false)
+    this.stepper.setCompleteValue(false)
+    this.router.navigateByUrl('/pay/confirm', { replaceUrl: true });
+  }
+
+  showMap(serviceName: string):string{
+    switch(serviceName) {
+      case 'KRL':
+        return '/assets/images/rutekrl.png';
+      case 'TJ':
+        return '/assets/images/rutetransjakarta.png';
+      case 'LRT':
+        return '/assets/images/rutelrt.png';
+      case 'MRT':
+        return '/assets/images/rutemrt.png';
+      default:
+        return '/assets/images/rutekrl.png';
+    }
+  }
+
+  openMap(tab:string):void{
+    console.log
+    this.mapImagePath= this.showMap(tab)
+    this.isVisible =!this.isVisible
+  }
+
+  closeMap(){
+    return this.isVisible =!this.isVisible
   }
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormKRLDataService } from '../service/form.krl.service';
-import { delay, timer } from 'rxjs';
-import { response } from 'express';
+import { delay} from 'rxjs';
 import { Stepper } from '../service/stepper.service';
 
 @Component({
@@ -16,18 +15,15 @@ export class PaymentMethodComponent implements OnInit{
   }
 
   completePayment(){
-    const orderID : string|null = sessionStorage.getItem('orderID')
+    const orderID = sessionStorage.getItem('orderID')
     const userID = localStorage.getItem('userID')
-    const val = "+200"
-
-    console.log(orderID, userID)
+    const val = `-${localStorage.getItem('total-pay')}`
 
     this.service.updatePayment(orderID!, userID!, val).pipe(delay(3000)).subscribe((response)=>{
       console.log('Pesan',response)
     })
     this.service.getTicket(orderID!).subscribe(()=>{
-      this.router.navigate(['/pay/complete'],{state:{currentStep:'complete'}})
-      this.stepper.setisOrderValue(true)
+      this.router.navigateByUrl('/pay/complete',{state:{currentStep:'complete'}, replaceUrl:true})
       this.stepper.setCompleteValue(true)
       })
   }

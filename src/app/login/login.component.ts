@@ -12,7 +12,6 @@ import { error } from 'console';
 })
 export class LoginComponent implements OnInit {
   loginForm?:any;
-  http = inject(HttpClient)
   fontStyle:any ={}
   
   constructor(private fb:FormBuilder, private router:Router,private loginService:LoginService){}
@@ -20,7 +19,7 @@ export class LoginComponent implements OnInit {
   ngOnInit():void{
     this.loginForm = this.fb.group({
       userid:['', Validators.required],
-      mpin:['', Validators.required]
+      mpin: ['', [Validators.required, Validators.maxLength(6)]]
     })
 
   }
@@ -31,13 +30,13 @@ export class LoginComponent implements OnInit {
 
     if(useridField && mpinField){
       if(useridField.invalid) {
-        useridField.markAsTouched(); // Menandai input sebagai "touched" untuk menunjukkan pesan kesalahan
-        return; // Menghentikan eksekusi jika input belum valid
+        useridField.markAsTouched()
+        return
       }
   
       if (mpinField.invalid) {
-        mpinField.markAsTouched(); // Menandai input sebagai "touched" untuk menunjukkan pesan kesalahan
-        return; // Menghentikan eksekusi jika input belum valid
+        mpinField.markAsTouched()
+        return
       }
 
       const userId = useridField.value
@@ -46,7 +45,7 @@ export class LoginComponent implements OnInit {
       this.loginService.loginByHash(userId,mpin).subscribe({
         next: (result) =>{
           console.log(result.userId)
-          this.router.navigate([''])
+          this.router.navigateByUrl('',{replaceUrl:true})
         },
         error:(error)=>{
           console.error(error)

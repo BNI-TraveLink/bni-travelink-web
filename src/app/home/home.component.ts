@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { LoginService } from '../service/login.service';
 
 @Component({
@@ -7,5 +7,4 @@ import { LoginService } from '../service/login.service';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent{
-  // constructor(private service:LoginService ){}
 }

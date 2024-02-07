@@ -13,7 +13,6 @@ import { ConfirmPaymentComponent } from './confirm-payment/confirm-payment.compo
 import { PaymentMethodComponent } from './payment-method/payment-method.component';
 import { CompleteComponent } from './complete/complete.component';
 import { MyorderComponent } from './myorder/myorder.component';
-import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './footer/footer.component';
 import { DatePipe } from '@angular/common';
@@ -36,7 +35,6 @@ import { DatePipe } from '@angular/common';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
   ],

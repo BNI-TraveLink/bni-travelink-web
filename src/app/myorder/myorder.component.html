@@ -12,7 +12,7 @@
           <div *ngIf="loading">
             <div class="h-[200px] card bg-gradient-to-r from-neutral-200 to-neutral-100 rounded-2xl shadow overflow-x-auto animate-pulse"></div>
           </div>
-          <div *ngFor="let item of ticketByUser; let i = index">
+          <div *ngFor="let item of visibleTickets; let i = index">
               <div class="card bg-neutral-100 rounded-2xl shadow mx-6 mb-4">
                 <!-- Konten Card yang sesungguhnya -->
                 <div class="card-body flex flex-row items-center font-inter p-5 flex-grow overflow-x-auto">
@@ -46,7 +46,18 @@
                   </div>
                 </div>
               </div>
-            </div>
+          </div>
+          <div *ngIf="totalPages > 1" class="flex justify-center mt-4">
+            <button class="bg-orange-500 text-white px-4 py-2 rounded-md mr-2" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+            <ng-container *ngFor="let page of pageNumbers">
+              <button class="bg-neutral-200 text-secondary font-semibold px-4 py-2 rounded-md mr-2" (click)="goToPage(page)" 
+              [class.bg-secondary]="currentPage === page"
+              [class.text-white]="currentPage === page">{{ page }}
+            </button>
+            </ng-container>
+            <button class="bg-orange-500 text-white px-4 py-2 rounded-md" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+          </div>
+                   
         </div>
       </div>
     </div>
