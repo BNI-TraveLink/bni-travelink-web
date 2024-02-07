@@ -15,18 +15,15 @@ export class PaymentMethodComponent implements OnInit{
   }
 
   completePayment(){
-    const orderID : string|null = sessionStorage.getItem('orderID')
+    const orderID = sessionStorage.getItem('orderID')
     const userID = localStorage.getItem('userID')
     const val = `-${localStorage.getItem('total-pay')}`
-
-    console.log(orderID, userID)
 
     this.service.updatePayment(orderID!, userID!, val).pipe(delay(3000)).subscribe((response)=>{
       console.log('Pesan',response)
     })
     this.service.getTicket(orderID!).subscribe(()=>{
       this.router.navigateByUrl('/pay/complete',{state:{currentStep:'complete'}, replaceUrl:true})
-      // this.stepper.setisOrderValue(true)
       this.stepper.setCompleteValue(true)
       })
   }

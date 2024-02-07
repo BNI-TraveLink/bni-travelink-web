@@ -16,6 +16,12 @@ export class FormKRLDataService{
     formData$ = this.formData.asObservable()
     userId = this.loginService.getUserId()
 
+    token = localStorage.getItem('token')
+
+    headers = {
+        Authorization :`Bearer ${this.token}`,
+     }
+
     createPayment(userID:string, serviceName:string, departure:string, destination:string, amount:string, totalPrice:string):Observable<number>{
         
         const formDataSubmit = new FormData();
@@ -32,7 +38,7 @@ export class FormKRLDataService{
         return new Observable<number>(observe=>{
          
             // console.log(amount)
-            axios.post<number>(`${environment.apiUrl}/payment/GeneratePayment`, formDataSubmit).then(response =>{
+            axios.post<number>(`${environment.apiUrl}/payment/GeneratePayment`, formDataSubmit, {headers: this.headers}).then(response =>{
                 const data = response.data
                 // console.log("response", data)
                 sessionStorage.setItem("orderID", data.toString())
@@ -49,14 +55,12 @@ export class FormKRLDataService{
     }
 
     //generate Ticket
-    getTicket(orderID:String):Observable<Ticket>{
+    getTicket(orderID:String):Observable<Ticket>{ 
         return new Observable<Ticket>(observe=>{
-            axios.post<Ticket>(`${environment.apiUrl}/tickets/GenerateTicket/${orderID}`).then(response=>{
-                if(response.status === 200){
-                    const data = response.data;
-                    observe.next(data)
+            axios.post<Ticket>(`${environment.apiUrl}/tickets/GenerateTicket/${orderID}`,null,{headers: this.headers}).then(response=>{
+                const data = response.data;
+                observe.next(data)
                     observe.complete()
-                }  
             }).catch(error =>{
                 observe.error(error)
             })
@@ -72,7 +76,7 @@ export class FormKRLDataService{
         formUpdatePay.append('val', val);
 
         return new Observable<string>(observe =>{
-            axios.post<string>(`${environment.apiUrl}/payment/updatePayment`,formUpdatePay).then(response =>{
+            axios.post<string>(`${environment.apiUrl}/payment/updatePayment`,formUpdatePay, {headers: this.headers}).then(response =>{
                 const message = response.data
                 console.log(message)                
                 observe.next(message)
