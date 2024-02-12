@@ -7,7 +7,7 @@
                         <img src="./assets/images/logo-bnitravelink.svg" alt="">
                     </div>
                     <div *ngIf="loginForm.hasError('incorrectLogin')" class="text-center mt-2">
-                        <p class="text-red-500 font-medium">UserID or MPIN is invalid!</p>
+                        <p class="text-red-500 font-medium">UserID or MPIN is Incorrects!</p>
                     </div>
                     <div id="form-content">
                         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -17,9 +17,9 @@
                                 placeholder="Userid"
                                 class="bg-white pl-[13px] rounded-3xl border-2 text-[16px] border-gray-300 h-[72px] focus:border-orange-600 focus:outline-orange-600 shadow-md text-secondary font-semibold w-full block"
                                 />
-                                <!-- <div *ngIf="loginForm.get('userid').invalid && loginForm.get('userid').touched">
+                                <div *ngIf="loginForm.get('userid').invalid && loginForm.get('userid').touched">
                                     <p class="text-red-500 font-medium">Please enter your userid</p>
-                                </div> -->
+                                </div>
                             </div>
                             <div id="mpin-form" class="flex flex-col mb-8">
                                 <label class="text-orange-500 font-medium" for="mpin" id="mpin">MPIN</label>
@@ -27,12 +27,12 @@
                                     <input type="password" formControlName="mpin" 
                                     placeholder="MPIN"class="bg-white pl-[13px] rounded-3xl border-2 text-[16px] border-gray-300 h-[72px] focus:border-orange-600 focus:outline-orange-600 shadow-md text-secondary font-semibold w-full block"/>
                                 </div>
-                                <!-- <div *ngIf="loginForm.get('mpin').invalid">
+                                <div *ngIf="loginForm.get('mpin').invalid && loginForm.get('userid').touched">
                                     <div *ngIf="loginForm.get('mpin').errors.required" class="text-red-500 font-medium">
                                         Please enter your MPIN
                                     </div>
     
-                                </div> -->
+                                </div>
                             </div>
                         
                             <div id="warning" class="w-full h-11 flex items-center py-2 px-5 mb-12 bg-zinc-300 rounded-md">
