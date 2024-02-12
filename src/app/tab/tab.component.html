@@ -479,15 +479,9 @@
       </button>
     </div>
   </div>
-
-  <div *ngIf="isVisible" class="fixed top-0 left-0 inset-0 z-50 w-full h-full flex items-center justify-center bg-black bg-opacity-50">
-    <img [src]="mapImagePath" class="w-[475px] h-[600px] object-contain" alt="">
-    <div class="absolute top-0 right-0 mr-4 mt-4">
-        <button type="button" (click)="closeMap()" class="px-3 py-2 text-black">
-            <img src="/assets/images/close.svg" alt="">   
-        </button>
-    </div>
-</div>
-
-
+  <div class="fixed inset-0 flex items-center justify-center z-50" *ngIf="isVisible">
+    <div class="absolute inset-0 bg-black opacity-50" (click)="closeMap()"></div>
+    <div class="p-10 z-10">
+      <img [src]="mapImagePath" class="w-full h-[500px] object-contain" alt="">
+  </div>
 </div>

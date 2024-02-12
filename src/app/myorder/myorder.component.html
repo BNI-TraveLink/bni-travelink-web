@@ -1,64 +1,61 @@
 <app-navbar></app-navbar>
-<div class="w-full h-screen relative">
-  <img src="/assets/images/background_home.png" class="w-full h-96 bg-contain opacity-85" alt="">
-  <div class="w-full absolute top-0 inset-0 z-[2] pt-10">
-    <h1 class="text-center text-white font-bold text-xl">Simplifying your journey with TraveLink</h1>
-
-
-    <div id="form-content" class="relative mx-auto">
-      <div class="absolute inset-0 top-0 z-[2] px-10">
-        <div class="flex flex-col mt-8 p-4 sm:mx-0 md:mx-5 shadow-md bg-white rounded-3xl">
-          <h2 class="text-sky-900 text-2xl text-center my-8 font-bold font-['Inter'] leading-snug">My Order</h2>      
-          <div *ngIf="loading">
-            <div class="h-[200px] card bg-gradient-to-r from-neutral-200 to-neutral-100 rounded-2xl shadow overflow-x-auto animate-pulse"></div>
-          </div>
-          <div *ngFor="let item of visibleTickets; let i = index">
-              <div class="card bg-neutral-100 rounded-2xl shadow mx-6 mb-4">
-                <!-- Konten Card yang sesungguhnya -->
-                <div class="card-body flex flex-row items-center font-inter p-5 flex-grow overflow-x-auto">
-                  <div class="py-4 px-4 mx-auto">
-                    <img [src]="getIconPath(item.service.name)"
-                    class="w-10 h-10" alt=""/>
-                  </div>
-                  <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base ">
-                    <h2 class="font-normal text-neutral-600 mb-2">#Order ID</h2>
-                    <h4 class="font-medium">{{item.orderId}}</h4>
-                  </div>
-                  <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base ">
-                    <h2 class="font-normal  text-neutral-600 mb-2">Transaction Date</h2>
-                    <h4 class="font-medium">{{formatDate(item.createdAt.toString())}}</h4>
-                  </div>
-                  <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base">
-                    <h2 class="font-normal text-neutral-600 mb-2">Departure</h2>
-                    <h4 class="font-medium">{{item.departure}}</h4>
-                  </div>
-                  <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base">
-                    <h2 class="font-normal text-neutral-600 mb-2">Destination</h2>
-                    <h4 class="font-medium">{{item.destination}}</h4>
-                  </div>
-                  <div class="py-2 px-4 mx-auto text-center text-base md:text-xs lg:text-base">
-                    <h2 class="font-normal  text-neutral-600 mb-2">Status</h2>
-                    <div class="py-2 px-4 whitespace-nowrap  bg-opacity-40 rounded-2xl"
-                      [ngClass]="item.active ? 'bg-lime-600 text-sky-900 ' : 'bg-orange-300 text-orange-700'">
-                      <div class="text-base font-medium font-['Inter'] leading-snug">{{item.active ? 'Active' :
-                        'Used'}}</div>
-                    </div>
+<main>
+  <div class="w-full min-h-screen flex flex-col items-center bg-home bg-cover bg-no-repeat">
+    <h1 class="text-center text-white font-bold text-xl mt-10">Simplifying your journey with TraveLink</h1>
+    <div id="form-content" class="w-full mx-auto">
+      <div class="flex flex-col my-8 p-4 sm:mx-0 md:mx-5 shadow-md bg-white rounded-3xl">
+        <h2 class="text-sky-900 text-2xl text-center my-8 font-bold font-['Inter'] leading-snug">My Order</h2>      
+        <div *ngIf="loading">
+          <div class="card w-full h-[200px] bg-gradient-to-r from-neutral-200 to-neutral-100 rounded-2xl shadow overflow-x-auto animate-pulse"></div>
+        </div>
+        <div *ngFor="let item of visibleTickets; let i = index">
+            <div class="card bg-neutral-100 rounded-2xl shadow mx-6 mb-4">
+              <div class="card-body flex flex-row items-center font-inter p-5 flex-grow overflow-x-auto">
+                <div class="py-4 px-4 mx-auto">
+                  <img [src]="getIconPath(item.service.name)"
+                  class="w-10 h-10" alt=""/>
+                </div>
+                <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base ">
+                  <h2 class="font-normal text-neutral-600 mb-2">#Order ID</h2>
+                  <h4 class="font-medium">{{item.orderId}}</h4>
+                </div>
+                <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base ">
+                  <h2 class="font-normal  text-neutral-600 mb-2">Transaction Date</h2>
+                  <h4 class="font-medium">{{formatDate(item.createdAt.toString())}}</h4>
+                </div>
+                <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base">
+                  <h2 class="font-normal text-neutral-600 mb-2">Departure</h2>
+                  <h4 class="font-medium">{{item.departure}}</h4>
+                </div>
+                <div class="py-2 px-4 mx-auto text-base md:text-sm lg:text-base">
+                  <h2 class="font-normal text-neutral-600 mb-2">Destination</h2>
+                  <h4 class="font-medium">{{item.destination}}</h4>
+                </div>
+                <div class="py-2 px-4 mx-auto text-center text-base md:text-xs lg:text-base">
+                  <h2 class="font-normal  text-neutral-600 mb-2">Status</h2>
+                  <div class="py-2 px-4 whitespace-nowrap  bg-opacity-40 rounded-2xl"
+                    [ngClass]="item.active ? 'bg-lime-600 text-sky-900 ' : 'bg-orange-300 text-orange-700'">
+                    <div class="text-base font-medium font-['Inter'] leading-snug">{{item.active ? 'Active' :
+                      'Used'}}</div>
                   </div>
                 </div>
               </div>
-          </div>
-          <div *ngIf="totalPages > 1" class="flex justify-center mt-4">
-            <button class="bg-orange-500 text-white px-4 py-2 rounded-md mr-2" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
-            <ng-container *ngFor="let page of pageNumbers">
-              <button class="bg-neutral-200 text-secondary font-semibold px-4 py-2 rounded-md mr-2" (click)="goToPage(page)" 
-              [class.bg-secondary]="currentPage === page"
-              [class.text-white]="currentPage === page">{{ page }}
-            </button>
-            </ng-container>
-            <button class="bg-orange-500 text-white px-4 py-2 rounded-md" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
-          </div>
-                   
+            </div>
         </div>
+        <div *ngIf="totalPages > 1" class="flex justify-center mt-4">
+          <button class="bg-orange-500 text-white px-4 py-2 rounded-md mr-2" (click)="prevPage()" [disabled]="currentPage === 1">Previous</button>
+          <ng-container *ngFor="let page of pageNumbers">
+            <button class="bg-neutral-200 text-secondary font-semibold px-4 py-2 rounded-md mr-2" (click)="goToPage(page)" 
+            [class.bg-secondary]="currentPage === page"
+            [class.text-white]="currentPage === page">{{ page }}
+          </button>
+          </ng-container>
+          <button class="bg-orange-500 text-white px-4 py-2 rounded-md" (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+        </div>      
       </div>
     </div>
   </div>
+  <app-footer></app-footer>
+</main>
+
+
