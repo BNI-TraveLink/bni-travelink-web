@@ -1,9 +1,7 @@
-import { HttpClient} from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from '../service/login.service';
 import { Router } from '@angular/router';
-import { error } from 'console';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +17,7 @@ export class LoginComponent implements OnInit {
   ngOnInit():void{
     this.loginForm = this.fb.group({
       userid:['', Validators.required],
-      mpin: ['', [Validators.required, Validators.maxLength(6)]]
+      mpin: ['', Validators.required]
     })
 
   }
@@ -44,6 +42,7 @@ export class LoginComponent implements OnInit {
 
       this.loginService.loginByHash(userId,mpin).subscribe({
         next: (result) =>{
+          // console.log(result.userId)
           this.router.navigateByUrl('',{replaceUrl:true})
         },
         error:(error)=>{
