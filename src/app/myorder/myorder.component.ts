@@ -56,7 +56,6 @@ export class MyorderComponent implements OnInit {
 
   ngOnInit(): void {
     const userID = localStorage.getItem('userID')
-    console.log(userID)
     this.service.showAllTicket(userID!).pipe(delay(3000)).subscribe(response=>{
       this.ticketByUser = response.sort((last, first)=>{
         const firstDate = new Date(first.createdAt).getTime()

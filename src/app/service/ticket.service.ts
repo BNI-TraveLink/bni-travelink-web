@@ -7,10 +7,7 @@ import { environment } from "../../environments/environment.development";
 
 @Injectable({providedIn:'root'})
 export class TicketService{
-
-    
     showAllTicket(userID: string): Observable<Ticket[]>{
-        // console.log(localStorage.getItem('token'))
         const token = localStorage.getItem('token')
         const config: AxiosRequestConfig = {
             headers: {

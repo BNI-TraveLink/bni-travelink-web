@@ -87,7 +87,6 @@ export class ConfirmPaymentComponent implements OnInit {
     this.showTerms(activeTab!)
     this.service.getPriceTiket(activeTab!).subscribe((data)=>{
       this.price = data
-      console.log(data)
     })
    
   }
@@ -112,7 +111,6 @@ export class ConfirmPaymentComponent implements OnInit {
     const tab = sessionStorage.getItem("tab-select")
     this.total = this.price * Number(this.passanger)
     this.formDataService.createPayment(userID!, tab!, this.departure!, this.destination!, this.passanger!,this.getTotal().toString()).subscribe((response)=>{
-      console.log(response)
       localStorage.setItem("total-pay", this.total.toString())
       this.router.navigateByUrl('/pay/process',{ replaceUrl: true })
       this.stepper.setisOrderValue(true)

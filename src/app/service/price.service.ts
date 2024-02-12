@@ -19,7 +19,6 @@ export class PriceService{
         return new Observable<number>(observe=>{
             axios.get(`${environment.apiUrl}/service/getServiceByName/${tab}`,config).then(response=>{
                 const data = response.data.price
-                console.log("response", data)
                 observe.next(data)
                 observe.complete()
             }

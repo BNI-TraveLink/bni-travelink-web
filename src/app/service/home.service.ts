@@ -29,7 +29,6 @@ export class HomeService{
         axios.get<Station[]>(`${environment.apiUrl}/service/getStationByServiceName`, config).then(response =>{
           const data = response.data
           this.stations = data
-          console.log(data)
           observeable.next(data)
           observeable.complete()
       })

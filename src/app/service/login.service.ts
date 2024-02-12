@@ -16,28 +16,18 @@ export class LoginService{
         const formData = new FormData();
         formData.append('userId', userId);
         formData.append('mpin', mpin);
-
-        console.log("Login",formData)
-    
         // Using Axios for the HTTP request with form data
         return new Observable<Login>(observer => {
           axios.post<Login>(`${environment.apiUrl}/logins/hash`, formData)
               .then(response => {
                   const data = response.data; // Extract the required fields
                   this.login = data
-
                   localStorage.setItem('userID', this.login.userId)
                   localStorage.setItem('token',this.login.jwt)
-
-                //   this._isLoggedIn.next(true)
-
-                console.log("Data", data)
-
                   observer.next(data);
                   observer.complete();
               })
               .catch(error => {
-                //  this._isLoggedIn.next(false)
                   observer.error(error);
                   console.error(error);
               });

@@ -32,15 +32,9 @@ export class FormKRLDataService{
         formDataSubmit.append('amount',amount)
         formDataSubmit.append('totalPrice', totalPrice)
 
-        console.log("Data",formDataSubmit)
-        console.log("departure",departure)
-    
         return new Observable<number>(observe=>{
-         
-            // console.log(amount)
             axios.post<number>(`${environment.apiUrl}/payment/GeneratePayment`, formDataSubmit, {headers: this.headers}).then(response =>{
                 const data = response.data
-                // console.log("response", data)
                 sessionStorage.setItem("orderID", data.toString())
                 observe.next(data)
                 observe.complete()
@@ -70,7 +64,6 @@ export class FormKRLDataService{
     //Proses pelunasan
     updatePayment(orderID:string, userID:string, val:string):Observable<string>{
         const formUpdatePay = new FormData();
-        console.log('ORDER', orderID)
         formUpdatePay.append('orderId', orderID);
         formUpdatePay.append('userid',userID);
         formUpdatePay.append('val', val);

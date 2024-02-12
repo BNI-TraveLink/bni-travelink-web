@@ -46,20 +46,20 @@ export class TabComponent implements OnInit {
   }
 
   openCity(cityName: string): void {
+    
+    this.departureControl.setValue('')
+    this.destinationControl.setValue('')
+    this.passengerCountControl.setValue('')
+
     this.activeTab = cityName;
-    console.log(this.activeTab)
     this.getStationByTab(cityName)
   }
 
   getStationByTab(cityName: string) {
-
-    console.log('getStationByTab called for:', cityName);
-
     this.searchedStation = [];
     this.searchedDestination = [];
 
     this.homeService.getStationByServiceName(cityName).subscribe(response => {
-      console.log("Result" + response)
       localStorage.setItem("tab", cityName)      
       this.stations = response
       this.destinationStation = response
@@ -100,7 +100,6 @@ export class TabComponent implements OnInit {
     }
     else {
       alert("Invalid Input")
-      console.log("Form is not valid. Please fill in all required fields.");
     }
   }
 
@@ -134,7 +133,6 @@ export class TabComponent implements OnInit {
   }
 
   openMap(tab:string):void{
-    console.log
     this.mapImagePath= this.showMap(tab)
     this.isVisible =!this.isVisible
   }
