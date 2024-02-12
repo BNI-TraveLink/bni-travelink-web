@@ -24,8 +24,13 @@
                             <div id="mpin-form" class="flex flex-col mb-8">
                                 <label class="text-orange-500 font-medium" for="mpin" id="mpin">MPIN</label>
                                 <div class="relative">
-                                    <input type="password" formControlName="mpin" 
+                                    <input type="{{ showPassword ? 'text' : 'password' }}" formControlName="mpin" 
                                     placeholder="MPIN"class="bg-white pl-[13px] rounded-3xl border-2 text-[16px] border-gray-300 h-[72px] focus:border-orange-600 focus:outline-orange-600 shadow-md text-secondary font-semibold w-full block"/>
+                                    <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center" 
+                                    (click)="togglePasswordVisibility()">
+                                    <img *ngIf="!showPassword" src="/assets/images/visible.svg"/>
+                                    <img *ngIf="showPassword" src="/assets/images/invisible.svg"/>
+                                    </button>
                                 </div>
                                 <div *ngIf="loginForm.get('mpin').invalid && loginForm.get('userid').touched">
                                     <div *ngIf="loginForm.get('mpin').errors.required" class="text-red-500 font-medium">

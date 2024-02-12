@@ -20,6 +20,8 @@ export class ConfirmPaymentComponent implements OnInit {
 
   userID:any
 
+  harga:any
+
   isVissible:boolean = false
 
   selectedTerms: string[] = [];
@@ -87,9 +89,18 @@ export class ConfirmPaymentComponent implements OnInit {
     this.showTerms(activeTab!)
     this.service.getPriceTiket(activeTab!).subscribe((data)=>{
       this.price = data
-    })
-   
+    })   
   }
+
+  transform(value: number): string {
+    if (value) {
+      // Convert the number to string and split it to add separators
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    }
+    return '';
+  }
+
+  
 
   constructor(private router:Router, private formDataService:FormKRLDataService, private service:PriceService, private stepper: Stepper){}
 

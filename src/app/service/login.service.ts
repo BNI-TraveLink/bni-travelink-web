@@ -32,13 +32,10 @@ export class LoginService{
               })
               .catch(error => {
                   observer.error(error);
-                  console.error(error);
+                  console.error("Gagal Login");
               });
               
       });}
-
-
-
 
     getToken(){
         return localStorage.getItem('token');
