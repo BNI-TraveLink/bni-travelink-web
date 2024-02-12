@@ -16,14 +16,17 @@ export class LoginService{
         const formData = new FormData();
         formData.append('userId', userId);
         formData.append('mpin', mpin);
+    
         // Using Axios for the HTTP request with form data
         return new Observable<Login>(observer => {
           axios.post<Login>(`${environment.apiUrl}/logins/hash`, formData)
               .then(response => {
                   const data = response.data; // Extract the required fields
                   this.login = data
+
                   localStorage.setItem('userID', this.login.userId)
                   localStorage.setItem('token',this.login.jwt)
+
                   observer.next(data);
                   observer.complete();
               })
