@@ -3,9 +3,7 @@ import axios from "axios";
 import { BehaviorSubject, Observable } from "rxjs";
 import { LoginService } from "./login.service";
 import { Ticket } from "../models/ticket";
-import { error } from "console";
 import { environment } from "../../environments/environment";
-import { response } from "express";
 
 @Injectable({providedIn:'root'})
 export class FormKRLDataService{

@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm?:any;
+  showPassword: boolean = false;
+
   fontStyle:any ={}
   
   constructor(private fb:FormBuilder, private router:Router,private loginService:LoginService){}
@@ -21,6 +23,10 @@ export class LoginComponent implements OnInit {
     })
 
   }
+
+    togglePasswordVisibility() {
+        this.showPassword = !this.showPassword;
+    }
 
   onSubmit():void{
     const useridField = this.loginForm.get('userid')
@@ -46,7 +52,7 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl('',{replaceUrl:true})
         },
         error:(error)=>{
-          console.error(error)
+          // console.error(error)
           this.loginForm.setErrors({'incorrectLogin':true})
         }
 

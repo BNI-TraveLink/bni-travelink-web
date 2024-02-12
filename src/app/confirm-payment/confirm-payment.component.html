@@ -46,7 +46,7 @@
                     Tiket
                 </h4>
                 <p class="text-sky-900 text-base font-medium font-['Inter'] leading-snug">
-                    Rp.{{price}}
+                    Rp {{transform(price)}}
                 </p>
             </div>
             <div class="flex flex-row mb-4 justify-between">
@@ -62,7 +62,7 @@
                     Total Payment
                 </h4>
                 <p class="text-secondary text-base font-semibold font-['Inter'] leading-snug">
-                   Rp.{{getTotal()}}
+                   Rp {{transform(getTotal())}}
                 </p>
             </div>
 
