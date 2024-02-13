@@ -48,11 +48,9 @@ export class LoginComponent implements OnInit {
 
       this.loginService.loginByHash(userId,mpin).subscribe({
         next: (result) =>{
-          // console.log(result.userId)
           this.router.navigateByUrl('',{replaceUrl:true})
         },
         error:(error)=>{
-          // console.error(error)
           this.loginForm.setErrors({'incorrectLogin':true})
         }
 

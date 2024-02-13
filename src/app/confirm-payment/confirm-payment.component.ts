@@ -85,8 +85,6 @@ export class ConfirmPaymentComponent implements OnInit {
     this.passanger = sessionStorage.getItem('passenger')
 
     const activeTab = localStorage.getItem('tab')
-    const tab = sessionStorage.getItem("tab-select")
-    console.log('Tab Select', tab)
 
     this.getTodayDate()
     
