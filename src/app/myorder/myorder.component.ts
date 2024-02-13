@@ -15,6 +15,9 @@ export class MyorderComponent implements OnInit {
   itemsPerPage: number = 5;
   currentPage: number = 1;
 
+  //kalau punya data
+  hasData: boolean = true;
+
   get totalPages(): number {
     return Math.ceil(this.ticketByUser.length / this.itemsPerPage);
   }
@@ -64,6 +67,7 @@ export class MyorderComponent implements OnInit {
         return firstDate - lastDate;
       })
       this.loading = false;
+      this.hasData = this.ticketByUser.length > 0
     })
   }
 

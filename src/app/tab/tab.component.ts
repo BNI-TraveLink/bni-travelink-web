@@ -85,6 +85,9 @@ export class TabComponent implements OnInit {
       sessionStorage.setItem('destination', destination!);
       sessionStorage.setItem('passenger', passenger!);
       sessionStorage.setItem('tab-select', cityName)
+
+      const tab = sessionStorage.getItem("tab-select")
+      console.log('Tab Select', tab)
       
       if (departure === destination) {
         alert("Please select different destination");
@@ -114,7 +117,8 @@ export class TabComponent implements OnInit {
     this.stepper.setBooleanValue(true)
     this.stepper.setisOrderValue(false)
     this.stepper.setCompleteValue(false)
-    this.router.navigateByUrl('/pay/confirm', { replaceUrl: true });
+    // this.router.navigateByUrl('/pay/confirm', { replaceUrl: true });
+    this.router.navigate(['/pay/confirm']);
   }
 
   showMap(serviceName: string):string{
