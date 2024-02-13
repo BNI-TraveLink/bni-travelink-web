@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import { FormKRLDataService } from '../service/form.krl.service';
 import { PriceService } from '../service/price.service';
-import { response } from 'express';
 import { Stepper } from '../service/stepper.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-confirm-payment',
@@ -78,7 +78,6 @@ export class ConfirmPaymentComponent implements OnInit {
 
   ]
 
-
   ngOnInit(): void {
 
     this.destination = sessionStorage.getItem('destination')
@@ -86,6 +85,11 @@ export class ConfirmPaymentComponent implements OnInit {
     this.passanger = sessionStorage.getItem('passenger')
 
     const activeTab = localStorage.getItem('tab')
+    const tab = sessionStorage.getItem("tab-select")
+    console.log('Tab Select', tab)
+
+    this.getTodayDate()
+    
     this.showTerms(activeTab!)
     this.service.getPriceTiket(activeTab!).subscribe((data)=>{
       this.price = data
@@ -102,7 +106,7 @@ export class ConfirmPaymentComponent implements OnInit {
 
   
 
-  constructor(private router:Router, private formDataService:FormKRLDataService, private service:PriceService, private stepper: Stepper){}
+  constructor(private router:Router, private formDataService:FormKRLDataService, private service:PriceService, private stepper: Stepper, private datePiper: DatePipe){}
 
   getTotal():number{
     return this.price * Number(this.passanger);
@@ -120,6 +124,8 @@ export class ConfirmPaymentComponent implements OnInit {
   onSubmit():void{
     const userID = localStorage.getItem("userID")
     const tab = sessionStorage.getItem("tab-select")
+    console.log('Tab Select', tab)
+
     this.total = this.price * Number(this.passanger)
     this.formDataService.createPayment(userID!, tab!, this.departure!, this.destination!, this.passanger!,this.getTotal().toString()).subscribe((response)=>{
       localStorage.setItem("total-pay", this.total.toString())
@@ -127,6 +133,14 @@ export class ConfirmPaymentComponent implements OnInit {
       this.stepper.setisOrderValue(true)
     })
 
+  }
+
+  //dapat tanggal hari ini
+  getTodayDate(){
+    const today = new Date()
+    const endOfDayDate = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23,59)
+    const todayFormat = this.datePiper.transform(endOfDayDate, 'dd MMMM yyy HH:mm')
+    return todayFormat;
   }
 
   showPopUp(){
