@@ -1,4 +1,4 @@
-import { Inject, inject} from '@angular/core';
+import { inject} from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivateFn,Router,RouterStateSnapshot,UrlTree} from '@angular/router';
 import { LoginService } from '../service/login.service';
 import { Observable } from 'rxjs';
